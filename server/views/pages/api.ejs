@@ -15,7 +15,7 @@
                 <p>
 
                     CurrencyUp provides a simple and powerful REST API to allow you to programatically perform nearly all actions you can from our web interface.  All requests use the <code>application/json</code>
-                    content type and go over <code>https</code>.  The base url is <code>https://exchange.currencyup.com/api/{version}/</code>.  All requests are GET requests and all responses come in a default response object with
+                    content type and go over <code>https</code>.  The base url is <code>https://dev.currencyup.com/api/{version}/</code>.  All requests are GET requests and all responses come in a default response object with
                     the result in the result field.  Always check the <code>success</code> flag to ensure that your API call succeeded.<br>
                     <br>
                     We are currently restricting orders to 500 open orders and 200,000 orders a day.  We reserve the right to change these settings as we tune the system.
@@ -35,7 +35,7 @@
                 <h3>General</h3>
                 We provide a simple RESTful API. All calls are GETs and should be called via <code>https</code>. We will support n-1 versions of the API. Our current stable API is v1. The endpoints have a standard format as follows:
                 <br><br>
-                <pre>https://exchange.currencyup.com/api/{version}/{method}?param=value</pre>
+                <pre>https://dev.currencyup.com/api/{version}/{method}?param=value</pre>
                 <hr>
                 <h3>Authentication</h3>
                 In the spirit of keeping things simple, we offer an easy to manage API Key authentication method. 
@@ -65,7 +65,7 @@ $apikey='__API_KEY__';
 $apisecret='__API_SECRET__';
 $nonce=time();
 
-$uri='https://exchange.currencyup.com/api/v1'.$request .'?apikey='.$apikey.'&ampnonce='.$nonce.'&ampmarket='.$market.'&ampcurrency='.$currency;
+$uri='https://dev.currencyup.com/api/v1'.$request .'?apikey='.$apikey.'&ampnonce='.$nonce.'&ampmarket='.$market.'&ampcurrency='.$currency;
 $sign=hash_hmac('sha512',$uri,$apisecret);
 $ch = curl_init($uri);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('apisign:'.$sign));
@@ -93,7 +93,7 @@ GetOpenOrders('BTC-BWK', data => { console.log(JSON.stringify(data.result || dat
 function GetOpenOrders(market, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/market/getopenorders?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market;
+    const uri = 'https://dev.currencyup.com/api/v1/market/getopenorders?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -128,7 +128,7 @@ function GetOpenOrders(market, callback)
                     Parameters 
                     <p>None</p>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/public/getmarkets</pre>
+                    <pre>https://dev.currencyup.com/api/v1/public/getmarkets</pre>
                     Response:
                     <pre>
     {
@@ -179,7 +179,7 @@ function GetOpenOrders(market, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/public/getorderbook?market=BWK-BTC&amp;type=both </pre>
+                    <pre>https://dev.currencyup.com/api/v1/public/getorderbook?market=BWK-BTC&amp;type=both </pre>
                     Response:
                     <pre>    {
 	"success" : true,
@@ -213,7 +213,7 @@ function GetOpenOrders(market, callback)
                     <h5>/public/getlastmarketdata</h5>
                     <p>Used to get the last summary of all coins </p>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/public/getlastmarketdata</pre>
+                    <pre>https://dev.currencyup.com/api/v1/public/getlastmarketdata</pre>
                     Response:
                     <pre>
 {
@@ -221,7 +221,7 @@ function GetOpenOrders(market, callback)
 "message":"",
 "result":{
     "coins":[
-    {"id":1,"name":"Bitcoin","ticker":"BTC","icon":"https%3A//exchange.currencyup.com/btc.png","info":{"active":true,"minconf":3,"hold":0.002,"page":"1","withdraw":"Enabled","orders":"Enabled"},"volume":0,"price":0,"fromBuyerToSeller":0,"buysell":"buy","prev_price":0,"prev_frombuyertoseller":0,"prev_buysell":"buy"},
+    {"id":1,"name":"Bitcoin","ticker":"BTC","icon":"https%3A//dev.currencyup.com/btc.png","info":{"active":true,"minconf":3,"hold":0.002,"page":"1","withdraw":"Enabled","orders":"Enabled"},"volume":0,"price":0,"fromBuyerToSeller":0,"buysell":"buy","prev_price":0,"prev_frombuyertoseller":0,"prev_buysell":"buy"},
     {"id":2,"name":"Bulwark","ticker":"BWK","icon":"https%3A//raw.githubusercontent.com/bitcoin/bitcoin/master/src/qt/res/icons/bitcoin.png","info":{"active":true,"minconf":3,"hold":0.0002,"page":"https://bitcointalk.org/index.php?topic=5.0","withdraw":"Enabled","orders":"Enabled"},"volume":"0.000014000000","price":"1441881.0","fromBuyerToSeller":"20.186334","buysell":"buy","prev_price":"1437854.0","prev_frombuyertoseller":1437854,"prev_buysell":"buy"},
     {"id":3,"name":"Litecoin","ticker":"LTC","icon":"https%3A//raw.githubusercontent.com/dogecoin/dogecoin/master/src/qt/res/icons/bitcoin.png","info":{"minconf":3,"hold":2,"active":true,"page":"https://bitcointalk.org/index.php?topic=361813.0"},"volume":"8.8580000","price":"0.71999990","fromBuyerToSeller":"6.3777591","buysell":"sell","prev_price":"0.71999990","prev_frombuyertoseller":0.7199999034455098,"prev_buysell":"sell"},
     ***]
@@ -250,7 +250,7 @@ function GetOpenOrders(market, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/public/getmarketsummary?market=BTC-BWK&amp;period=250</pre>
+                    <pre>https://dev.currencyup.com/api/v1/public/getmarketsummary?market=BTC-BWK&amp;period=250</pre>
                     Response:
                     <pre>
     {
@@ -274,7 +274,7 @@ function GetOpenOrders(market, callback)
                     <p>Used to get the last 24 hour summary of all active exchanges </p>
                     Parameters 
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/public/getmarkets24</pre>
+                    <pre>https://dev.currencyup.com/api/v1/public/getmarkets24</pre>
                     Response:
                     <pre>
     {
@@ -309,7 +309,7 @@ function GetOpenOrders(market, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/public/getmarkethistory?market=BTC-LTC</pre>
+                    <pre>https://dev.currencyup.com/api/v1/public/getmarkethistory?market=BTC-LTC</pre>
                     Response:
                     <pre>
     {
@@ -382,7 +382,7 @@ function GetOpenOrders(market, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/market/buylimit?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-LTC&amp;quantity=1.2&amp;rate=1.3</pre>
+                    <pre>https://dev.currencyup.com/api/v1/market/buylimit?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-LTC&amp;quantity=1.2&amp;rate=1.3</pre>
                     Response - Returns you the order uuid:
                     <pre>
     {
@@ -410,7 +410,7 @@ BuyLimit('BTC-LTC', 0.00001, 1135000, data => { console.log(JSON.stringify(data.
 function BuyLimit(market, quantity, rate, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/market/buylimit?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market+'&ampquantity='+quantity+'&amprate='+rate;
+    const uri = 'https://dev.currencyup.com/api/v1/market/buylimit?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market+'&ampquantity='+quantity+'&amprate='+rate;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -458,7 +458,7 @@ function BuyLimit(market, quantity, rate, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/market/selllimit?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-LTC&quantity=1.2&amp;rate=1.3</pre>
+                    <pre>https://dev.currencyup.com/api/v1/market/selllimit?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-LTC&quantity=1.2&amp;rate=1.3</pre>
                     Response - Returns you the order uuid:
                     <pre>
     {
@@ -486,7 +486,7 @@ SellLimit('BTC-LTC', 0.00001, 11350000, data => { console.log(JSON.stringify(dat
 function SellLimit(market, quantity, rate, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/market/selllimit?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market+'&ampquantity='+quantity+'&amprate='+rate;
+    const uri = 'https://dev.currencyup.com/api/v1/market/selllimit?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market+'&ampquantity='+quantity+'&amprate='+rate;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -525,7 +525,7 @@ function SellLimit(market, quantity, rate, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/market/cancel?apikey=API_KEY&amp;nonce=NONCE&amp;uuid=ORDER_UUID </pre>
+                    <pre>https://dev.currencyup.com/api/v1/market/cancel?apikey=API_KEY&amp;nonce=NONCE&amp;uuid=ORDER_UUID </pre>
                     Response - Returns you the order uuid:
                     <pre>
     {
@@ -551,7 +551,7 @@ CancelOrder("1530078445865-2-0.6676880290983116", data => { console.log(JSON.str
 function CancelOrder(uuid, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/market/cancel?apikey='+API_PUB_KEY+'&nonce='+nonce+'&uuid='+uuid;
+    const uri = 'https://dev.currencyup.com/api/v1/market/cancel?apikey='+API_PUB_KEY+'&nonce='+nonce+'&uuid='+uuid;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -590,7 +590,7 @@ function CancelOrder(uuid, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/market/getopenorders?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-LTC  </pre>
+                    <pre>https://dev.currencyup.com/api/v1/market/getopenorders?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-LTC  </pre>
                     Response - Returns you the order uuid:
                     <pre>
     {
@@ -630,7 +630,7 @@ GetOpenOrders('BTC-BWK', data => { console.log(JSON.stringify(data.result || dat
 function GetOpenOrders(market, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/market/getopenorders?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market;
+    const uri = 'https://dev.currencyup.com/api/v1/market/getopenorders?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampmarket='+market;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -673,7 +673,7 @@ function GetOpenOrders(market, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/getbalance?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BTC</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/getbalance?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BTC</pre>
                     Response:
                     <pre>
     {
@@ -705,7 +705,7 @@ GetBalance('BTC', data => { console.log(JSON.stringify(data.result || data)); })
 function GetBalance(currency, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/account/getbalance?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampcurrency='+currency;
+    const uri = 'https://dev.currencyup.com/api/v1/account/getbalance?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampcurrency='+currency;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -745,7 +745,7 @@ function GetBalance(currency, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/getdepositaddress?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BWK</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/getdepositaddress?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BWK</pre>
                     Response:
                     <pre>
     {
@@ -774,7 +774,7 @@ function GetBalance(currency, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/getorder?apikey=API_KEY&amp;nonce=NONCE&amp;uuid=ORDER_UUID</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/getorder?apikey=API_KEY&amp;nonce=NONCE&amp;uuid=ORDER_UUID</pre>
                     Response:
                     <pre>
     {
@@ -807,7 +807,7 @@ GetOrder("1530077938662-2-0.04123927384759796", data => { console.log(JSON.strin
 function GetOrder(uuid, callback)
 {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/account/getorder?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampuuid='+uuid;
+    const uri = 'https://dev.currencyup.com/api/v1/account/getorder?apikey='+API_PUB_KEY+'&ampnonce='+nonce+'&ampuuid='+uuid;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -847,7 +847,7 @@ function GetOrder(uuid, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/getorderhistory?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-BWK</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/getorderhistory?apikey=API_KEY&amp;nonce=NONCE&amp;market=BTC-BWK</pre>
                     Response:
                     <pre>
     {
@@ -894,7 +894,7 @@ function GetOrder(uuid, callback)
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/withdraw?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BTC&amp;quantity=20.40&amp;address=BTC_ADDRESS</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/withdraw?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BTC&amp;quantity=20.40&amp;address=BTC_ADDRESS</pre>
                     Response:
                     <pre>
 {
@@ -922,7 +922,7 @@ Withdraw('BTC', 5, 'MVe3eoMq7TeGMzPw9EpXGpKQzW2aMvJNAa', data => { console.log(J
 
 function Withdraw(currency, quantity, address, callback) {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/account/withdraw?apikey='+API_PUB_KEY+'&nonce='+nonce+'&currency='+currency+'&quantity='+quantity+'&address='+address;
+    const uri = 'https://dev.currencyup.com/api/v1/account/withdraw?apikey='+API_PUB_KEY+'&nonce='+nonce+'&currency='+currency+'&quantity='+quantity+'&address='+address;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -964,7 +964,7 @@ function Withdraw(currency, quantity, address, callback) {
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/createcoupon?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BTC&amp;quantity=20.40</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/createcoupon?apikey=API_KEY&amp;nonce=NONCE&amp;currency=BTC&amp;quantity=20.40</pre>
                     Response:
                     <pre>
 {
@@ -993,7 +993,7 @@ Create('BTC', 0.01, ret => {console.log(JSON.stringify(ret))});
 
 function Create(currency, quantity, callback) {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/account/createcoupon?apikey='+API_PUB_KEY+'&nonce='+nonce+'&currency='+currency+'&quantity='+quantity;
+    const uri = 'https://dev.currencyup.com/api/v1/account/createcoupon?apikey='+API_PUB_KEY+'&nonce='+nonce+'&currency='+currency+'&quantity='+quantity;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
@@ -1032,7 +1032,7 @@ function Create(currency, quantity, callback) {
                         </tr>
                     </table>
                     Request: 
-                    <pre>https://exchange.currencyup.com/api/v1/account/redeemcoupon?apikey=API_KEY&amp;nonce=NONCE&amp;coupon=OT-2-1-0.01-1532875173145-f4f1b216f09507bsld587ygsek7fc88903tydfsjk36e7c8633196dafa9648</pre>
+                    <pre>https://dev.currencyup.com/api/v1/account/redeemcoupon?apikey=API_KEY&amp;nonce=NONCE&amp;coupon=OT-2-1-0.01-1532875173145-f4f1b216f09507bsld587ygsek7fc88903tydfsjk36e7c8633196dafa9648</pre>
                     Response:
                     <pre>
 {
@@ -1062,7 +1062,7 @@ Close("OT-2-1-0.01-1532875173145-f4f1b216f09507bsld587ygsek7fc88903tydfsjk36e7c8
 
 function Close(coupon, callback) {
     const nonce = Date.now()+Math.floor(Math.random() * (1000)) + 1;
-    const uri = 'https://exchange.currencyup.com/api/v1/account/redeemcoupon?apikey='+API_PUB_KEY+'&nonce='+nonce+'&coupon='+coupon;
+    const uri = 'https://dev.currencyup.com/api/v1/account/redeemcoupon?apikey='+API_PUB_KEY+'&nonce='+nonce+'&coupon='+coupon;
     const parsed = require('url').parse(uri, true);
     const signature = require('crypto').createHmac('sha512', API_PRIV_KEY).update(new Buffer(uri, 'utf-8')).digest('hex');
     
