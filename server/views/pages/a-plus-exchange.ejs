@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+  <style>
+ 
+ ::-webkit-scrollbar {
+	width: 12px;
+	background-color: rgb(85, 85, 85);
+}
+ body{
+   width:100%;
+ }
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: rgb(85, 85, 85);
+}
+ 
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgb(212, 110, 42);
+}
+
+    #baser {
+      display: flex;
+      background-color: rgb(72,72,72);
+      width: 80em;
+      height: 80em;
+    }
+    #DIV_87 {
+    }
+    #DIV_88 {
+    }
+    #DIV_89 {
+    }
+    #DIV_90 {
+    }
+    #DIV_91 {
+    }
+}
+
+
+
+.containera{
+display: block;
+width: 100%;
+height: 100%;
+height: 100%;
+}
+
+
+  </style>
+    <% include ../partials/head %>
+  <body style="background-color:rgb(23,23,23);">
+
+    <% include ../partials/header %>
+
+
+      <input id='id_token' type='hidden' <% var value = ''; try{if (status.token) value = "value='"+status.token+"'"}catch(e){} %> <%- value %>>
+   
+         <div class="row" style="margin-right: 0px; margin-left: 0px; margin-top: 0px; height:93vh; margin-top: 0.25%;">
+            
+          <div style="display: flexbox; background-color: rgb(72,72,72); width: 69.75%; height: 100%; ">
+              </div>
+              <div style="display: flexbox; background-color: rgb(209, 16, 16); width: 30%; height: 100%; margin-left: 0.25%;">
+              </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    <% include ../partials/footer %>
+    <script src='/js/index.js'></script>
+    
+  </body>
+</html>

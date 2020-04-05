@@ -1,12 +1,12 @@
 'use strict';
 
-const SUPPORT_EMAIL = 'AbacusBitsupport@email.com';
-const NOREPLY_EMAIL = 'no-reply-AbacusBit@email.com';
-const DOMAIN = 'abacusbit.io';
+const SUPPORT_EMAIL = 'webmaster@CurrencyUp.com';
+const NOREPLY_EMAIL = 'webmaster@CurrencyUp.com';
+const DOMAIN = 'dev.currencyup.com';
 
-const MAILER_NAME = 'AbacusBit Mailer';
-const START_MESSAGE = 'AbacusBit started!';
-const OPENTRADE = "AbacusBit";
+const MAILER_NAME = 'CurrencyUp Mailer';
+const START_MESSAGE = 'CurrencyUp started!';
+const OPENTRADE = "CurrencyUp";
 
 exports.ALLOW_EMAIL_CHANGING = true;
 
@@ -16,24 +16,24 @@ exports.share = {
    tradeEnabled: true,
    withdrawEnabled: true,
    recaptchaEnabled: true,
-   emailVerificationEnabled: 'enabled', //'disabled' // !!! WARNING !!! DANGER !!! DO NOT CHANGE IT IN PRODUCTION !!! FOR TESTS ONLY !!!
-   pinVerificationEnabled: 'enabled', //'disabled'
+   emailVerificationEnabled: 'disabled', //'disabled'
+   pinVerificationEnabled: 'disabled', //'disabled'
    
    TRADE_COMISSION: 0.0025,
    DUST_VOLUME: 0.00000001,
    
    my_portSSL: 443,
    
-   TRADE_MAIN_COIN: "Bitcoin",
-   TRADE_MAIN_COIN_TICKER: "BTC",
-   TRADE_DEFAULT_PAIR: "Bulwark"
+   TRADE_MAIN_COIN: "Litecoin",
+   TRADE_MAIN_COIN_TICKER: "LTC",
+   TRADE_DEFAULT_PAIR: "DNR"
 };
 
-exports.my_port = process.env.PORT || 40080;
+exports.my_port = process.env.PORT || 80;
 
-exports.SESSION_TIME = 3600*1000; //one hour
+exports.SESSION_TIME = 3600*24000; //one hour
 
-exports.recaptcha_pub_key = "6Lfws34UAAAAAMP3douVbNVC9PBKoR0HwXDr5Tiy";
+exports.recaptcha_pub_key = "6LesbeMUAAAAAOPdOJTPkkpGd7SBQB3D_5PlGyAu";
 const MAX_IP_CONNECTIONS = 100;
 
 const MAX_USER_WITHDRAW = 100; //Percentage from trade deposit

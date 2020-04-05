@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+ 
+
+    #DIV_86 {
+        bottom: 950px;
+        color: rgb(255, 255, 255);
+        height: 460px;
+        left: 0px;
+        position: absolute;
+        right: 1519px;
+        text-decoration: none solid rgb(255, 255, 255);
+        top: 0px;
+        width: 250px;
+        column-rule-color: rgb(255, 255, 255);
+        perspective-origin: 198.5px 230px;
+        transform: matrix(1, 0, 0, 1, 2, 2);
+        transform-origin: 198.5px 230px;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(14, 17, 24) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(255, 255, 255);
+       
+        outline: rgb(255, 255, 255) none 0px;
+        transition: transform 0.2s ease 0s;
+    }/*#DIV_86*/
+    
+    
+    
+    #DIV_87 {
+        bottom: 950px;
+        color: rgb(255, 255, 255);
+        height: 634px;
+        left: -399px;
+        position: absolute;
+        right: 801px;
+        text-decoration: none solid rgb(255, 255, 255);
+        top: 0px;
+        width: 1513px;
+        column-rule-color: rgb(255, 255, 255);
+        perspective-origin: 557.5px 230px;
+        transform: matrix(1, 0, 0, 1, 401, 2);
+        transform-origin: 557.5px 230px;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(14, 17, 24) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(255, 255, 255);
+      
+        outline: rgb(255, 255, 255) none 0px;
+        transition: transform 0.2s ease 0s;
+    }/*#DIV_87*/
+    
+    
+    
+    #DIV_88 {
+        bottom: 4px;
+        color: rgb(255, 255, 255);
+        height: 1406px;
+        left: 0px;
+        position: absolute;
+        right: 1519px;
+        text-decoration: none solid rgb(255, 255, 255);
+        top: 0px;
+        width: 386px;
+        column-rule-color: rgb(255, 255, 255);
+        perspective-origin: 198.5px 703px;
+        transform: matrix(1, 0, 0, 1, 1517, 2);
+        transform-origin: 198.5px 703px;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(14, 17, 24) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(255, 255, 255);
+    
+        outline: rgb(255, 255, 255) none 0px;
+        transition: transform 0.2s ease 0s;
+    }/*#DIV_88*/
+    
+    
+    #DIV_89 {
+        bottom: 466px;
+        color: rgb(255, 255, 255);
+        height: 770px;
+        left: 0px;
+        position: absolute;
+        right: 1519px;
+        text-decoration: none solid rgb(255, 255, 255);
+        top: 174px;
+        width: 250px;
+        column-rule-color: rgb(255, 255, 255);
+        perspective-origin: 198.5px 472px;
+        transform: matrix(1, 0, 0, 1, 2, 464);
+        transform-origin: 198.5px 472px;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(14, 17, 24) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(255, 255, 255);
+    
+        outline: rgb(255, 255, 255) none 0px;
+        transition: transform 0.2s ease 0s;
+    }/*#DIV_89*/
+    
+    
+    
+    #DIV_90 {
+        bottom: 1016px;
+        color: rgb(255, 255, 255);
+        height: 220px;
+        left: -147px;
+        position: absolute;
+        right: 801px;
+        text-decoration: none solid rgb(255, 255, 255);
+        top: 174px;
+        width: 1261px;
+        column-rule-color: rgb(255, 255, 255);
+        perspective-origin: 557.5px 197px;
+        transform: matrix(1, 0, 0, 1, 401, 464);
+        transform-origin: 557.5px 197px;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(14, 17, 24) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(255, 255, 255);
+        outline: rgb(255, 255, 255) none 0px;
+        transition: transform 0.2s ease 0s;
+    }/*#DIV_90*/
+    
+    
+    
+    #DIV_91 {
+        bottom: 862px;
+        color: rgb(255, 255, 255);
+        height: 548px;
+        left: -147px;
+        position: absolute;
+        right: 801px;
+        text-decoration: none solid rgb(255, 255, 255);
+        top: 0px;
+        width: 1261px;
+        column-rule-color: rgb(255, 255, 255);
+        perspective-origin: 557.5px 274px;
+        transform: matrix(1, 0, 0, 1, 401, 860);
+        transform-origin: 557.5px 274px;
+        caret-color: rgb(255, 255, 255);
+        background: rgb(14, 17, 24) none repeat scroll 0% 0% / auto padding-box border-box;
+        border: 0px none rgb(255, 255, 255);
+        transition: transform 0.2s ease 0s;
+    }/*#DIV_91*/
+}
+
+
+.containera{
+display: block;
+width: 100%;
+height: 100%;
+height: 300px;
+}
+  </style>
+    <% include ../partials/head %>
+  <body style="background-color:rgb(7, 7, 8);">
+
+    <% include ../partials/header %>
+
+
+      <% include ../partials/alerts %>
+      <input id='id_token' type='hidden' <% var value = ''; try{if (status.token) value = "value='"+status.token+"'"}catch(e){} %> <%- value %>>
+   
+              <%-__('Market')%>
+         
+
+              <div id="DIV_87">
+                    <iframe frameBorder="0" scrolling='no' style='height: 634px; width: 1513px;' src='../bigChart.html'></iframe>
+                </div>
+                <div id="DIV_88">
+                        <div class="containera" style="width: 383px; color: rgb(26, 236, 131);">
+                                <div class="card">
+                                  <div class="card-header p-0 " style="background-color:rgb(11, 12, 14);">
+                                    <table class='table table-orders m-0'>
+                                      <tr>
+                                        <td><strong>Buy orders</strong></td>
+                                       <td class='form_title_volume' align="right">Volume:<span id='id_buy_volume'></span></td>
+                                      </tr>
+                                    </table>
+                                    
+                                  </div>
+                                  <div class="card-body div-orders p-0" style="background-color:rgb(14, 17, 24);     min-height: 383px;
+                                  max-height: 383px;" >
+                                    <table class="table table-striped table-sm table-orders table-hover">
+                                      <thead>
+                                        <tr id='id_buy_orders_header'>
+                                        </tr>
+                                      </thead>
+                                      <tbody id='id_buy_orders_body'>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div> 
+                              </div>
+                              <div class="containera" style="width: 383px;  color: rgb(255, 80, 80);">
+                                <div class="card">
+                                  <div class="card-header p-0 " style="background-color:rgb(11, 12, 14);">
+                                    <table class='table table-orders m-0'>
+                                      <tr>
+                                        <td><strong>Sell orders</strong></td>
+                                       <td class='form_title_volume' align="right">Volume:<span id='id_sell_volume'></span></td>
+                                      </tr>
+                                    </table>
+                                    
+                                  </div>
+                                  <div class="card-body div-orders p-0" style="background-color:rgb(14, 17, 24);     min-height: 383px;
+                                  max-height: 383px;">
+                                    <table class="table table-striped table-sm table-orders table-hover">
+                                      <thead>
+                                        <tr id='id_sell_orders_header'>
+                                        </tr>
+                                      </thead>
+                                      <tbody id='id_sell_orders_body'>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>          
+                              </div>
+                </div>
+                <div id="DIV_89">
+                </div>
+                <div id="DIV_90">
+                        <form id="form_buy" class="p-3" style="height:200px; width: 250px;">
+                                <div class="form-group row">
+                                  <label for="inputBuyAmount" class="col-md-4 col-form-label form-control-sm">Amount:</label>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputBuyAmount" placeholder="0.0" aria-describedby="id_amount_buy" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 0 ">
+                                    <span class="currency" id="id_amount_buy"></span>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputBuyPrice" class="col-md-4 col-form-label form-control-sm">Price:</label>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputBuyPrice" placeholder="0.0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 0 ">
+                                    <span class="currency" id="id_price_buy"></span>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputBuyComission" class="col-md-4 col-form-label form-control-sm">Comission:</label>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputBuyComission" readonly placeholder="0.0">
+                                    <span class="currency" id="id_comission_buy"></span>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputBuyTotal" class="col-md-4 col-form-label form-control-sm">Total:</label>
+                                  <div class="col-md-8">
+                                    <input type="text" class="form-control" id="inputBuyTotal" placeholder="0.0" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 0 ">
+                                    <span class="currency" id="id_total_buy"></span>
+                                  </div>
+                                </div>
+                                <button style="width:100%" type="submit" class="btn btn-success"><%-__('Buy')%></button>
+                              </form>
+                </div>
+                <div id="DIV_91">
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+    <% include ../partials/footer %>
+    <script src='/js/index.js'></script>
+  </body>
+</html>

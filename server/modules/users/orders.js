@@ -164,7 +164,7 @@ exports.SubmitOrder = function(req, res)
                     utils.roundDown(req.body.amount*req.body.price+g_constants.share.TRADE_COMISSION*req.body.amount*req.body.price) :
                     utils.roundDown(req.body.amount*1);
                 
-                if (fullAmount*1 < 0.00001) return onError(req, res, 'Bad order total ( total < 0.00001 ) '+'( '+fullAmount*1+' < 0.00001 )');
+                if (fullAmount*1 < 0.00001) return onError(req, res, 'Bad order total ( total < 0.0000001 ) '+'( '+fullAmount*1+' < 0.0000001 )');
                 
                 if (!IsValidBalance(fullAmount)) return onError(req, res, 'Amount error ( '+fullAmount+' )');
                 if (!IsValidBalance(rows[0].balance)) return onError(req, res, 'Balance error ( '+rows[0].balance+' )');
@@ -289,14 +289,14 @@ function ValidateOrderRequest(req)
         req['message'] = 'Bad price ('+req.body.price+')';
         return false;
     }
-    if (req.body.amount*1 < 0.00001)
+    if (req.body.amount*1 < 0.00000001)
     {
-        req['message'] = 'Bad order amount ( amount < 0.00001 ) '+'( '+req.body.amount*1+' < 0.00001 )';
+        req['message'] = 'Bad order amount ( amount < 0.0000001 ) '+'( '+req.body.amount*1+' < 0.0000001 )';
         return false;
     }
-    if (req.body.price*1 < 0.00001)
+    if (req.body.price*1 < 0.00000001)
     {
-        req['message'] = 'Bad order price ( price < 0.00001 )'+' ( '+req.body.price*1+' < 0.00001 )';
+        req['message'] = 'Bad order price ( price < 0.0000001 )'+' ( '+req.body.price*1+' < 0.0000001 )';
         return false;
     }
     return true;
@@ -345,7 +345,7 @@ async function AddOrder(status, WHERE, newBalance, req, res, c)
             req.body.coin,
             req.body.order,
             amount,
-            price,
+            price.toFixed(8),
             g_constants.share.TRADE_MAIN_COIN,
             Date.now(),
             JSON.stringify(log),
@@ -406,9 +406,9 @@ exports.ProcessExchange = function(coin)
     
     g_LockedCoins[coin] = true;
     const SQL = 'SELECT * FROM (' +
-                'SELECT * FROM (SELECT ROWID as id, * FROM orders where coin="'+coin+'"  AND amount*price > 0 AND amount*100>0.000001 AND price*100>0.000001 AND buysell="buy" ORDER BY price*1 DESC, time*1 LIMIT 1 ) '+
+                'SELECT * FROM (SELECT ROWID as id, * FROM orders where coin="'+coin+'"  AND amount*price > 0 AND amount*100>0.00000001 AND price*100>0.00000001 AND buysell="buy" ORDER BY price*1 DESC, time*1 LIMIT 1 ) '+
                 'UNION ' +
-                'SELECT * FROM (SELECT ROWID as id, * FROM orders where coin="'+coin+'"  AND amount*price > 0  AND amount*100>0.000001 AND price*100>0.000001 AND buysell="sell"  ORDER BY price*1, time*1 LIMIT 1 )' +
+                'SELECT * FROM (SELECT ROWID as id, * FROM orders where coin="'+coin+'"  AND amount*price > 0  AND amount*100>0.00000001 AND price*100>0.00000001 AND buysell="sell"  ORDER BY price*1, time*1 LIMIT 1 )' +
                 ') ORDER BY buysell';
      
     database.SELECT(SQL, (err, rows) => {
@@ -560,7 +560,7 @@ exports.ProcessExchange = function(coin)
     {
         const WHERE = 'userRegID="'+buerID+'"';
         g_constants.dbTables['referals'].selectAll('*', WHERE, '', (err, rows) => {
-            const affiliateFee = (!err && rows && rows.length == 1) ? utils.roundDown(comission / 2) : 0;
+            const affiliateFee = (!err && rows && rows.length == 1) ? utils.roundDown(comission / 4) : 0;
             const donatorsFee = utils.roundDown(comission - affiliateFee);
             
             if (affiliateFee > 0 && utils.isNumeric(affiliateFee) && rows.length == 1)
@@ -583,7 +583,7 @@ exports.ProcessExchange = function(coin)
             for (var i=0; i<g_constants.DONATORS.length; i++)
             {
                 if (g_constants.DONATORS[i].percent && g_constants.DONATORS[i].userID)
-                    exports.AddBalance(g_constants.DONATORS[i].userID, (donatorsFee*(g_constants.DONATORS[i].percent*1-1)) / 100.0, price_pair, () => {}, buerID, 'From OpenTrade comission');
+                    exports.AddBalance(g_constants.DONATORS[i].userID, (donatorsFee*(g_constants.DONATORS[i].percent*1-1)) / 100.0, price_pair, () => {}, buerID, 'From CurrencyUp comission');
             }
         });
     }

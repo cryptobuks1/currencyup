@@ -1,0 +1,344 @@
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://masonry.desandro.com/masonry.pkgd.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<style>
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400");
+/*
+$bgLight: #424756;
+$bgDark: #1d1e21;
+*/
+li.card {
+  background-color: white;
+  width: 250px;
+  padding: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+li#checked,
+li#checked:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+  width: 270px;
+  transform: translate(-10px, -20px);
+}
+
+li.card img {
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 200px;
+  margin: auto;
+}
+
+li#checked img {
+  width: 100px;
+  height: 100px;
+}
+
+li.card h1,
+li.card h2,
+li.card p {
+  font-family: roboto, sans-serif;
+  font-weight: 300;
+}
+
+li.card h1 {
+  font-size: 1.5em;
+  margin: 20px 0 5px 0;
+  cursor: default;
+}
+
+li.card h2 {
+  font-size: 1.0em;
+  color: #969696;
+  visibility: hidden;
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+}
+
+li#checked h2 {
+  visibility: visible;
+  opacity: 1;
+  max-height: 300px;
+  margin: 0 0 10px 0;
+  transition-delay: 0s;
+  cursor: default;
+}
+
+li.card p {
+  font-size: .9em;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.8);
+  visibility: hidden;
+  opacity: 0;
+  max-height: 0;
+}
+
+li#checked p {
+  visibility: visible;
+  opacity: 1;
+  max-height: 4000px;
+  transition-delay: 0s;
+  cursor: default;
+}
+
+li.card:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+/********* page stuff ******/
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  transition: all 300ms ease-in-out;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+body {
+
+  text-align: center;
+}
+
+ul {
+  width: 1600px;
+  margin: 20px auto auto auto;
+}
+
+ul > li.card {
+  margin: 20px;
+}
+
+.logo {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 50px;
+}
+
+</style>
+<ul data-masonry='{ "itemSelector": ".card", "columnWidth": 300 }'>
+    <li class="card">
+      
+      <img src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" />
+      <h1>Bitcoin  <span class="product__price highlight"><div class="container" id="app88">
+    
+                                    
+          <div v-for="(result, index) in results88">
+   
+            
+             
+          <div class="item result">
+            <p>$ {{ result.USD }}</p>
+          </div>
+          <div class="item result">
+            <p>Ƀ {{ result.BTC }}</p>
+          </div>
+          
+            
+            
+   
+     </div>  
+     </div></span></h1>
+    
+      <h2>www.bitcoin.com</h2>
+     
+      <p>Bitcoin (₿) is a cryptocurrency, a form of electronic cash. It is a decentralized digital currency without a central bank or single administrator that can be sent from user-to-user on the peer-to-peer bitcoin network without the need for intermediaries. ... Bitcoins are created as a reward for a process known as mining.</p>
+    </li>
+  
+    <li class="card">
+      <img src="https://s2.coinmarketcap.com/static/img/coins/200x200/2.png" />
+      <h1>Litecoin
+          <span class="product__price highlight"><div class="container" id="app89">
+    
+                                    
+              <div v-for="(result, index) in results89">
+       
+                
+                 
+              <div class="item result">
+                <p>$ {{ result.USD }}</p>
+              </div>
+              <div class="item result">
+                <p>Ƀ {{ result.BTC }}</p>
+              </div>
+              
+                
+                
+       
+         </div>  
+         </div></span>
+      </h1>
+      <h2>www.litecoin.com</h2>
+  
+      <p>Litecoin (LTC or Ł) is a peer-to-peer cryptocurrency and open-source software project released under the MIT/X11 license. Creation and transfer of coins is based on an open source cryptographic protocol and is not managed by any central authority. Litecoin was an early bitcoin spinoff or altcoin, starting in October 2011. In technical details, litecoin is nearly identical to Bitcoin.</p>
+    </li>
+  
+    <li class="card">
+      <img src="https://dogecoin.com/imgs/dogecoin-300.png" />
+      <h1>Dogecoin  <span class="product__price highlight"><div class="container" id="app90">
+    
+                                    
+          <div v-for="(result, index) in results90">
+   
+            
+             
+          <div class="item result">
+            <p>$ {{ result.USD }}</p>
+          </div>
+          <div class="item result">
+            <p>Ƀ {{ result.BTC }}</p>
+          </div>
+          
+            
+            
+   
+     </div>  
+     </div></span></h1>
+      <h2>https://dogecoin.com/</h2>
+  
+      <p>Dogecoin is a peer-to-peer open source cryptocurrency and falls under the category of altcoins. Launched in December 2013 with a Shibu Inus (Japanese dog) as its logo, Dogecoin looked casual in its approach but is gaining wide acceptance for online transactions. It is a decentralized virtual currency and uses peer-to-peer technology to carry out its operations. Dogecoin is scrypt based (i.e. based on a password key) and enables fast payments to anyone, anywhere across the globe.</p>
+    </li>
+  
+    <li class="card">
+      <img src="https://avatars0.githubusercontent.com/u/32829172?s=200&v=4" />
+      <h1>Bulwark</h1>
+      <h2>https://bulwarkcrypto.com/</h2>
+  
+      <p>Bulwark is a privacy based cryptocurrency project with a focus on hardware development and user freedom. With Proof of Stake and Masternodes, users can either stake their Bulwark for rewards or lock collateral into masternodes to provide a variety of services such as Instantsend (Instantaneous Transactions) and Zerocoin (True cryptographic anonymity zBWK denominations) to the network and in return are compensated for being part of the core network infrastructure.</p>
+    </li>
+  
+    <li class="card">
+      <img src="https://avatars0.githubusercontent.com/u/40926241?s=460&v=4" />
+      <h1>Tecaxcrypto</h1>
+      <h2>https://github.com/tecaxcrypto</h2>
+  
+      <p>-/-</p>
+    </li>
+  
+    <li class="card">
+      <img src="https://avatars2.githubusercontent.com/u/42474762?s=200&v=4" />
+      <h1>Lytix</h1>
+      <h2>https://www.lytixchain.org/</h2>
+  
+      <p>Lytix is a fast confirmation, minable, solid masternode coin. No ICO required. This coin is minable for the first 100,000 blocks at 30 LYTX per block. Switch over to Proof of Stake and begin staking after the initial mining period.</p>
+    </li>
+
+    <li class="card">
+        <img src="https://avatars2.githubusercontent.com/u/41874013?s=460&v=4" />
+        <h1>Eazynode</h1>
+        <h2>https://eazynode.pro/</h2>
+    
+        <p>Eazynodes vision is to create a Mastertool solving all Masternode investors biggest problems when managing their portfolio- moving funds and setting up Masternodes to maximize their passive income. </p>
+      </li>
+      <li class="card">
+        <img src="https://avatars2.githubusercontent.com/u/39668054?s=460&v=4" />
+        <h1>Oasis</h1>
+        <h2>https://oasisgaming.co/</h2>
+    
+        <p>Oasis is a community driven cryptocurrency which aims to dominate the gaming industry. With carefully calculated ROI and relatively low supply, they have aimed at creating a perfectly balanced masternode coin that will interest a large market audience.</p>
+      </li>
+      <li class="card">
+        <img src="https://avatars0.githubusercontent.com/u/38873281?s=460&v=4" />
+        <h1>Dextro</h1>
+        <h2>https://dextro.io/</h2>
+    
+        <p>The main feature of Dextro is to operate fast and anonymous transactions using resources provided by the technology of masternodesto create an excellent option for digital payments. In addition to these features, DXO allows the purchase of hostingservices for masternodes on its own platform at an affordable price.</p>
+      </li>
+      
+      
+  </ul>
+  <hr>
+  <script>
+  var card = "li.card";
+$(card).click(function() {
+  if ($(this).attr("id") == "checked") {
+    $(this).removeAttr("id");
+  } else {
+    $(this).attr("id", "checked").css("z-index", 10);
+    $(this).siblings().removeAttr("id").css("z-index", 1);
+  }
+});
+
+  </script>
+
+  <script>
+   const url88 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms=USD,BTC";
+    
+    const vm88 = new Vue({
+        el: '#app88',   
+        data: {
+         results88: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url88).then(response => {
+                  this.results88 = response.data
+                })
+           }
+        }
+    });
+
+    const url89 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=LTC&tsyms=USD,BTC";
+    
+    const vm89 = new Vue({
+        el: '#app89',   
+        data: {
+         results89: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url89).then(response => {
+                  this.results89 = response.data
+                })
+           }
+        }
+    });
+    const url90 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=DOGE&tsyms=USD,BTC";
+    const vm90 = new Vue({
+        el: '#app90',   
+        data: {
+         results90: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url90).then(response => {
+                  this.results90 = response.data
+                })
+           }
+        }
+    });
+  </script>

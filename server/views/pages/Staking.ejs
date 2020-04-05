@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+    <% include ../partials/head %>
+  <body >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        /* General Blueprint Style */
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+        @font-face {
+            font-family: 'bpicons';
+            font-weight: normal;
+            font-style: normal;
+        
+            src: url('../fonts/bpicons/bpicons.eot');
+            src: url('../fonts/bpicons/bpicons.eot?#iefix') format('embedded-opentype'),
+            url('../fonts/bpicons/bpicons.woff') format('woff'),
+            url('../fonts/bpicons/bpicons.ttf') format('truetype'),
+            url('../fonts/bpicons/bpicons.svg#bpicons') format('svg');
+            
+        } 
+        
+        /* Resets */
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+        }
+        
+        body,
+        html {
+            font-size: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Helper classes */
+        .cf:before,
+        .cf:after {
+            content: ' ';
+            display: table;
+        }
+        
+        .cf:after {
+            clear: both;
+        }
+        
+        .hidden {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Main styles */
+        body {
+            font-family: 'Lato', Calibri, Arial, sans-serif;
+            color: #CECECE;
+            background: #2A2B30;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #f0f0f0;
+            outline: none;
+        }
+        
+        a:hover {
+            color: #516977;
+        }
+        
+        /* Blueprint header */
+        .bp-header {
+            width: 90%;
+            max-width: 69em;
+            margin: 0 auto;
+            padding: 6em 1.875em 1.875em;
+            text-align: center;
+        }
+        
+        .bp-header h1 {
+            font-size: 2.125em;
+            font-weight: 400;
+            line-height: 1.3;
+            margin: 0 0 .6em 0;
+        }
+        
+        .bp-header > span {
+            font-weight: 700;
+            font-size: 0.85em;
+            color: #5C5EDC;
+            position: relative;
+            z-index: 100;
+            display: block;
+            padding: 0 0 .6em .1em;
+            letter-spacing: .5em;
+            text-transform: uppercase;
+            text-indent: 30px;
+        }
+        
+        .bp-header > span span:after {
+            font-size: 50%;
+            font-size: 75%;
+            position: relative;
+            top: -8px;
+            left: -12px;
+            width: 30px;
+            height: 30px;
+        }
+        
+    
+        
+        .bp-header nav {
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .bp-header nav a {
+            position: relative;
+            display: inline-block;
+            width: 2.5em;
+            height: 2.5em;
+            margin: 0 .1em;
+            text-align: left;
+            border-radius: 50%;
+        }
+        
+        .bp-header nav a > span {
+            display: none;
+        }
+        
+        .bp-header nav a:hover:before {
+            content: attr(data-info);
+            color: #595A5F;
+            font-weight: bold;
+            font-size: 0.85em;
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 600%;
+            text-align: right;
+            pointer-events: none;
+        }
+        
+        .bp-header nav a:hover {
+            background: #5C5EDC;
+        }
+        
+        .bp-icon:after {
+            font-family: 'bpicons';
+            font-weight: normal;
+            font-style: normal;
+            font-variant: normal;
+            text-align: center;
+            text-transform: none;
+            color: #5C5EDC;
+            speak: none;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .bp-header nav .bp-icon:after {
+            line-height: 2.4;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-indent: 0;
+        }
+        
+        .bp-header nav a:hover:after {
+            color: #fff;
+        }
+        
+        .bp-icon-next:after {
+            content: '\e000';
+        }
+        
+        .bp-icon-drop:after {
+            content: '\e001';
+        }
+        
+        .bp-icon-archive:after {
+            content: '\e002';
+        }
+        
+        .bp-icon-about:after {
+            content: '\e003';
+        }
+        
+        .bp-icon-prev:after {
+            content: '\e004';
+        }
+        
+        @media screen and (max-width: 40em) {
+            .bp-header h1 {
+                font-size: 1.8em;
+            }
+        }
+        .view {
+            -webkit-transition: -webkit-transform 0.4s ease-in-out;
+            transition: transform 0.4s ease-in-out;
+        }
+        
+        .view--compare {
+            -webkit-transform: scale3d(0.9,0.9,1);
+            transform: scale3d(0.9,0.9,1);
+        }
+        
+        /* product grid */
+        .grid {
+            margin: 0 auto;
+            padding: 1em 1em;
+            max-width: 1200px;
+            text-align: center;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* if flexbox is supported, let's use it to lay out the products */
+        .flexbox .grid {
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-align-content: stretch;
+            -ms-flex-line-pack: stretch;
+            align-content: stretch;
+            -webkit-align-items: flex-start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+        }
+        
+        /* product */
+        .product {
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            min-width: 16em;
+            margin: 0 1em 2.5em;
+            padding: 1.5em 1.5em 2em;
+            background: #24252A;
+            border-radius: 5px;
+        }
+        
+        .product--selected {
+            box-shadow: 0 0 0 2px #5C5EDC;
+        }
+        
+        .flexbox .product {
+            display: block;
+            -webkit-flex: 0 0 16em;
+            -ms-flex: 0 0 16em;
+            flex: 0 0 16em;
+        }
+        
+        /* product info */
+        .product__info > span {
+            display: block;
+            padding: 1em 0;
+        }
+        
+        /* since we'll be using the product info inside of the comparison, we'll hide the extra info for the grid view */
+        .grid .extra {
+            display: none;
+        }
+        
+        .product__image {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+        }
+        
+        .product:hover .product__image {
+            -webkit-animation: swing 0.6s forwards;	
+            animation: swing 0.6s forwards;	
+        }
+        
+        /* https://daneden.github.io/animate.css/ */
+        @-webkit-keyframes swing {
+            25% {
+                -webkit-transform: rotate3d(0, 0, 1, 6deg);
+                transform: rotate3d(0, 0, 1, 6deg);
+            }
+        
+            50% {
+                -webkit-transform: rotate3d(0, 0, 1, -4deg);
+                transform: rotate3d(0, 0, 1, -4deg);
+            }
+        
+            75% {
+                -webkit-transform: rotate3d(0, 0, 1, 2deg);
+                transform: rotate3d(0, 0, 1, 2deg);
+            }
+        
+            100% {
+                -webkit-transform: rotate3d(0, 0, 1, 0deg);
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+        }
+        
+        @keyframes swing {
+          25% {
+                -webkit-transform: rotate3d(0, 0, 1, 6deg);
+                transform: rotate3d(0, 0, 1, 6deg);
+            }
+        
+            50% {
+                -webkit-transform: rotate3d(0, 0, 1, -4deg);
+                transform: rotate3d(0, 0, 1, -4deg);
+            }
+        
+            75% {
+                -webkit-transform: rotate3d(0, 0, 1, 2deg);
+                transform: rotate3d(0, 0, 1, 2deg);
+            }
+        
+            100% {
+                -webkit-transform: rotate3d(0, 0, 1, 0deg);
+                transform: rotate3d(0, 0, 1, 0deg);
+            }
+        }
+        
+        .product__title {
+            font-size: 150%;
+            margin: 1em 0 0;
+            min-height: 0em;
+        }
+        
+        .product__price {
+            font-weight: bold;
+            color: #797BED;
+        }
+        
+        .action {
+            display: inline-block;
+            font-size: 1em;
+            white-space: nowrap;
+            padding: 0.85em 1.25em;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            text-align: center;
+        }
+        
+        .action:focus {
+            outline: none;
+        }
+        
+        .action--button {
+            background: #2C2D34;
+            color: #fff;
+            border-radius: 2px;
+            -webkit-transition: background 0.2s;
+            transition: background 0.2s;
+        }
+        
+        .action--button:hover {
+            background: #5C5EDC;
+        }
+        
+        .action__text {
+            font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: .813em;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        
+        .action__text--invisible {
+            position: absolute;
+            top: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .action--button i + span {
+            margin-left: 1em;
+        }
+        
+        .flexbox .action--buy {
+            -webkit-align-self: center;
+            -ms-flex-item-align: center;
+            align-self: center;
+            margin-top: 1em;
+            -webkit-flex: none;
+            -ms-flex: none;
+            flex: none;
+        }
+        
+        .action--close {
+            position: absolute;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            font-size: 1.5em;
+            color: #ddd;
+            pointer-events: none;
+            opacity: 0;
+            -webkit-transition: opacity 0.3s, background 0.2s;
+            transition: opacity 0.3s, background 0.2s;
+        }
+        
+        .view--compare + .compare .action--close {
+            pointer-events: auto;
+            opacity: 1;
+            -webkit-transition-delay: 0.4s, 0s;
+            transition-delay: 0.4s, 0s;
+        }
+        
+        .action--close:hover,
+        .action--close:focus {
+            color: #797BED;
+        }
+        
+        .action--compare {
+            margin: 0 0 0 4px;
+            opacity: 0;
+            pointer-events: none;
+            cursor: default;
+            background-color: #34363D;
+            color: #565B6C;
+            -webkit-transition: opacity 0.3s;
+            transition: opacity 0.3s;
+        }
+        
+        .compare-basket--active .action--compare {
+            opacity: 1;
+        }
+        
+        .compare-basket--active .action--compare:nth-child(3),
+        .compare-basket--active .action--compare:nth-child(4) {
+            background-color: #494BC7;
+            color: #fff;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .action--remove {
+            position: absolute;
+            overflow: hidden;
+            color: #ddd;
+            top: 0px;
+            right: 2px;
+            padding: 0;
+            font-size: 0.65em;
+        }
+        
+        .action--compare-add {
+            color: #ddd;
+            position: absolute;
+            top: 10px;
+            right: 5px;
+        }
+        
+        .action--compare-add:hover .action__text--invisible {
+            opacity: 1;
+            top: 35px;
+            right: 10px;
+            color: #ddd;
+            font-size: 75%;
+            letter-spacing: 0;
+            background: #2F3035;
+            border-radius: 2px;
+            padding: 3px 5px;
+        }
+        
+        .action--remove:hover,
+        .action--compare-add:hover {
+            color: #5C5EDC;
+        }
+        
+        .action--compare-add .fa-check,
+        .action--compare-add input[type=checkbox]:checked ~ .fa-plus {
+            display: none;
+        }
+        
+        .action--compare-add input[type=checkbox]:checked ~ .fa-check {
+            display: block;
+            color: #5C5EDC;
+        }
+        
+        .check-hidden {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .compare-basket {
+            width: 100%;
+            padding: 0.75em;
+            text-align: right;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #212227;
+            z-index: 1000;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-transform: translate3d(0,-100%,0);
+            transform: translate3d(0,-100%,0);
+            -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.2,1,0.3,1);
+            transition: transform 0.3s cubic-bezier(0.2,1,0.3,1);
+        }
+        
+        .compare-basket--active {
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+        }
+        
+        .flexbox .compare-basket {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            -webkit-justify-content: flex-end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+        }
+        
+        .product-icon {
+            display: inline-block;
+            vertical-align: middle;
+            background: #42444F;
+            width: 50px;
+            height: 50px;
+            padding: 5px;
+            margin: 0 3px;
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .product-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 4px;
+            z-index: -1;
+            box-shadow: -56px 0 #2C2D34;
+        }
+        
+        .compare-basket--full .product-icon::after {
+            display: none;
+        }
+        
+        .flexbox .product-icon {
+            display: block;
+        }
+        
+        /* comparison overlay */
+        .compare {
+            position: fixed;
+            z-index: 100;
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            -webkit-transition: height 0s 0.4s;
+            transition: height 0s 0.4s;
+        }
+        
+        .flexbox .compare {
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+        }
+        
+        .view--compare + .compare {
+            pointer-events: auto;
+            height: 100%;
+            -webkit-transition: none;
+            transition: none;
+        }
+        
+        .compare::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            -webkit-transition: opacity 0.4s;
+            transition: opacity 0.4s;
+        }
+        
+        .view--compare + .compare::before {
+            opacity: 1;
+        }
+        
+        .compare__item {
+            height: 100%;
+            width: 50%;
+            background: #24252A;
+            text-align: center;
+            cursor: default;
+            padding: 2em 0;
+            -webkit-transition: -webkit-transform 0.4s ease-in-out;
+            transition: transform 0.4s ease-in-out;
+        }
+        
+        .no-flexbox .compare__item {
+            display: inline-block;
+            width: 50%;
+        }
+        
+        .compare__item:nth-of-type(2) {
+            background: #212227;
+        }
+        
+        .compare__item .product__title {
+            margin: 1em 0;
+            min-height: 0;
+        }
+        
+        .compare__item .product__price {
+            color: #CECECE;
+        }
+        
+        .compare__item span[class^="product__"] {
+            display: block;
+            padding: 0.85em 0;
+            -webkit-transition: background-color 0.3s;
+            transition: background-color 0.3s;
+        }
+        
+        .compare__item span[class^="product__"].hover {
+            background: #000;
+        }
+        
+        /* three items */
+        .compare__item:first-of-type:nth-last-of-type(3),
+        .compare__item:first-of-type:nth-last-of-type(3) ~ .compare__item {
+            width: 33.3333%;
+        }
+        
+        .flexbox .compare__item {
+            -webkit-flex: auto;
+            -ms-flex: auto;
+            flex: auto;
+        }
+        
+        .compare__item:nth-child(odd) {
+            -webkit-transform: translate3d(0,-100vh,0);
+            transform: translate3d(0,-100vh,0);
+        }
+        
+        .compare__item:nth-child(even) {
+            -webkit-transform: translate3d(0,100vh,0);
+            transform: translate3d(0,100vh,0);
+        }
+        
+        .view--compare + .compare .compare__item:nth-child(odd),
+        .view--compare + .compare .compare__item:nth-child(even) {
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+        }
+        
+        .compare__effect {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            -webkit-transition: -webkit-transform 1s cubic-bezier(0.2, 1, 0.3, 1), opacity 1s cubic-bezier(0.2, 1, 0.3, 1);
+            transition: transform 1s cubic-bezier(0.2, 1, 0.3, 1), opacity 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        
+        .compare__item:nth-child(odd) .compare__effect {
+            -webkit-transform: translate3d(0,-250px,0);
+            transform: translate3d(0,-250px,0);
+        }
+        
+        .compare__item:nth-child(even) .compare__effect {
+            -webkit-transform: translate3d(0,250px,0);
+            transform: translate3d(0,250px,0);
+        }
+        
+        .view--compare + .compare .compare__item:nth-child(odd) .compare__effect,
+        .view--compare + .compare .compare__item:nth-child(even) .compare__effect {
+            opacity: 1;
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            -webkit-transition-delay: 0.3s;
+            transition-delay: 0.3s;
+        }
+        
+        @media screen and (min-width: 59.688em) {
+            .flexbox .compare__effect {
+                display: -webkit-flex;
+                display: -ms-flex;
+                display: flex;
+                -webkit-flex-direction: column;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -webkit-justify-content: space-between;
+                -ms-flex-pack: justify;
+                justify-content: space-between;
+            }
+        
+            .flexbox .compare__item .product__image {
+                -webkit-align-self: center;
+                -ms-flex-align: center;
+                align-self: center;
+                -webkit-flex: none;
+                -ms-flex: none;
+                flex: none;
+            }
+        }
+        
+        @media screen and (max-width: 59.688em) {
+            .grid {
+                padding: 2em 0.5em;
+                font-size: 65%;
+            }
+        
+            .product {
+                margin: 0 0.5em 1em;
+                min-width: 13em;
+            }
+        
+            .product__title {
+                font-size: 115%;
+            }
+        
+            .flexbox .product {
+                -webkit-flex: 0 0 13em;
+                -ms-flex: 0 0 13em;
+                flex: 0 0 13em;
+            }
+        
+            .flexbox .compare {
+                -webkit-flex-direction: column;
+                -ms-flex-direction: column;
+                flex-direction: column;
+            }
+        
+            .no-flexbox .compare__item,
+            .compare__item,
+            .compare__item:first-of-type:nth-last-of-type(3),
+            .compare__item:first-of-type:nth-last-of-type(3) ~ .compare__item {
+                width: 100%;
+            }
+        
+            .compare__item {
+                text-align: left;
+                padding: 1.5em;
+                font-size: 90%;
+            }
+        
+            .compare__item .product__image {
+                height: 40px;
+                float: left;
+            }
+        
+            .compare__item .product__title {
+                margin: 0 40px 0 43px;
+                font-size: 0.85em;
+                display: block;
+            }
+        
+            .compare__item .product__year { border-bottom: 2px solid #2E294E; }
+            .compare__item .product__region { border-bottom: 2px solid #6D6FD2; }
+            .compare__item .product__varietal { border-bottom: 2px solid #4B5267; }
+            .compare__item .product__alcohol { border-bottom: 2px solid #3C3474; }
+        
+            .action--close {
+                padding: 0.5em 0.75em;
+            }
+        
+            .compare__item .action--buy {
+                margin: 0;
+                display: block;
+            }
+        
+            .compare__item span[class^="product__"] {
+                display: inline-block;
+                padding: 0.25em;
+                margin: 0 0 0.5em 0;
+                font-size: 0.85em;
+            }
+        
+            .compare__item:nth-child(odd) {
+                -webkit-transform: translate3d(-100%,0,0);
+                transform: translate3d(-100%,0,0);
+            }
+        
+            .compare__item:nth-child(even) {
+                -webkit-transform: translate3d(100%,0,0);
+                transform: translate3d(100%,0,0);
+            }
+        
+            .compare__item:nth-child(odd) .compare__effect {
+                -webkit-transform: translate3d(-250px,0,0);
+                transform: translate3d(-250px,0,0);
+            }
+        
+            .compare__item:nth-child(even) .compare__effect {
+                -webkit-transform: translate3d(250px,0,0);
+                transform: translate3d(250px,0,0);
+            }
+        }
+        </style>
+        <script>
+        
+         ;window.Modernizr=function(a,b,c){function z(a){j.cssText=a}function A(a,b){return z(m.join(a+";")+(b||""))}function B(a,b){return typeof a===b}function C(a,b){return!!~(""+a).indexOf(b)}function D(a,b){for(var d in a){var e=a[d];if(!C(e,"-")&&j[e]!==c)return b=="pfx"?e:!0}return!1}function E(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:B(f,"function")?f.bind(d||b):f}return!1}function F(a,b,c){var d=a.charAt(0).toUpperCase()+a.slice(1),e=(a+" "+o.join(d+" ")+d).split(" ");return B(b,"string")||B(b,"undefined")?D(e,b):(e=(a+" "+p.join(d+" ")+d).split(" "),E(e,b,c))}var d="2.8.3",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l={}.toString,m=" -webkit- -moz- -o- -ms- ".split(" "),n="Webkit Moz O ms",o=n.split(" "),p=n.toLowerCase().split(" "),q={},r={},s={},t=[],u=t.slice,v,w=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},x={}.hasOwnProperty,y;!B(x,"undefined")&&!B(x.call,"undefined")?y=function(a,b){return x.call(a,b)}:y=function(a,b){return b in a&&B(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=u.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(u.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(u.call(arguments)))};return e}),q.flexbox=function(){return F("flexWrap")};for(var G in q)y(q,G)&&(v=G.toLowerCase(),e[v]=q[G](),t.push((e[v]?"":"no-")+v));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)y(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},z(""),i=k=null,function(a,b){function l(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function m(){var a=s.elements;return typeof a=="string"?a.split(" "):a}function n(a){var b=j[a[h]];return b||(b={},i++,a[h]=i,j[i]=b),b}function o(a,c,d){c||(c=b);if(k)return c.createElement(a);d||(d=n(c));var g;return d.cache[a]?g=d.cache[a].cloneNode():f.test(a)?g=(d.cache[a]=d.createElem(a)).cloneNode():g=d.createElem(a),g.canHaveChildren&&!e.test(a)&&!g.tagUrn?d.frag.appendChild(g):g}function p(a,c){a||(a=b);if(k)return a.createDocumentFragment();c=c||n(a);var d=c.frag.cloneNode(),e=0,f=m(),g=f.length;for(;e<g;e++)d.createElement(f[e]);return d}function q(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return s.shivMethods?o(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+m().join().replace(/[\w\-]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(s,b.frag)}function r(a){a||(a=b);var c=n(a);return s.shivCSS&&!g&&!c.hasCSS&&(c.hasCSS=!!l(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),k||q(a,c),a}var c="3.7.0",d=a.html5||{},e=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,f=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,g,h="_html5shiv",i=0,j={},k;(function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",g="hidden"in a,k=a.childNodes.length==1||function(){b.createElement("a");var a=b.createDocumentFragment();return typeof a.cloneNode=="undefined"||typeof a.createDocumentFragment=="undefined"||typeof a.createElement=="undefined"}()}catch(c){g=!0,k=!0}})();var s={elements:d.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video",version:c,shivCSS:d.shivCSS!==!1,supportsUnknownElements:k,shivMethods:d.shivMethods!==!1,type:"default",shivDocument:r,createElement:o,createDocumentFragment:p};a.html5=s,r(b)}(this,b),e._version=d,e._prefixes=m,e._domPrefixes=p,e._cssomPrefixes=o,e.testProp=function(a){return D([a])},e.testAllProps=F,e.testStyles=w,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+t.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))};
+        </script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <!DOCTYPE html>
+  
+            <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+                <!-- Modernizr is used for flexbox fallback -->
+            </head>
+            <body>
+                <!-- Compare basket -->
+                <div class="compare-basket">
+                    <button class="action action--button action--compare"><i class="fa fa-check"></i><span class="action__text">Compare</span></button>
+                </div>
+                <!-- Main view -->
+                <div class="view">
+                    <!-- Blueprint header -->
+                    <header class="bp-header cf">
+                        
+                        <h1>CurrencyUp Staking Scripts &amp; Comparison</h1>
+                        <span><a href="https://exchange.currencyup.com/voidstake" style="color:#5C5EDC"><span>Need help? Use our Staking setup guide.</span></a></span>
+                        <span style="margin-top: 15px;"><a href="https://exchange.currencyup.com"><span>-> Back to Abacusbit <-</span></a></span>
+                        
+    
+    
+                    </header>
+                   <!-- Product grid -->
+                   <section class="grid">
+                    <!-- Products -->
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 1" />
+                            <h3 class="product__title">PIVX</h3>
+                            <span class="product__year extra highlight"><strong>ROI:</strong> 12%</span>
+                            <span class="product__region extra highlight"><strong>Masternode:</strong> 10,000 PIVX</span>
+                            <span class="product__varietal extra highlight"><strong>Launched:</strong> December 15, 2009</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / zPOS / MN</span>
+                            <span class="product__price highlight"><div class="container" id="app">
+
+                                
+                                <div v-for="(result, index) in results">
+                         
+                                  
+                                   
+                                <div class="item result">
+                                  <p>$ {{ result.USD }}</p>
+                                </div>
+                                <div class="item result">
+                                  <p>Ƀ {{ result.BTC }}</p>
+                                </div>
+                                
+                                  
+                                  
+                         
+                           </div>  
+                           </div> </span> 
+                               
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p1')"><p hidden id="p1">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                        
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/2.png" alt="Product 2" />
+                            <h3 class="product__title">Bulwark</h3>
+                            <span class="product__year extra highlight"><strong>ROI:</strong> 70%</span>
+                            <span class="product__region extra highlight"><strong>Masternode:</strong> 5,000 BWK</span>
+                            <span class="product__varietal extra highlight"><strong>Launched:</strong> December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight"><div class="container" id="app2">
+
+                                
+                                <div v-for="(result, index) in results2">
+                         
+                                  
+                                   
+                                <div class="item result">
+                                  <p>$ {{ result.USD }}</p>
+                                </div>
+                                <div class="item result">
+                                  <p>Ƀ {{ result.BTC }}</p>
+                                </div>
+                                
+                                  
+                                  
+                         
+                           </div>  
+                           </div></span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p2')"><p hidden id="p2">bash <( curl https://raw.githubusercontent.com/bulwark-crypto/Bulwark-Staking-Install/master/setup.sh )</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/dasha.png" alt="Product 3" />
+                            <h3 class="product__title">DASH</h3>
+                            <span class="product__year extra highlight"><strong>ROI:</strong> 6.8%</span>
+                            <span class="product__region extra highlight"><strong>Masternode:</strong> 1,000 DASH</span>
+                            <span class="product__varietal extra highlight"><strong>Launched:</strong> January 19, 2014</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POW / MN</span>
+                            <span class="product__price highlight"><div class="container" id="app3">
+
+                                
+                                <div v-for="(result, index) in results3">
+                         
+                                  
+                                   
+                                <div class="item result">
+                                  <p>$ {{ result.USD }}</p>
+                                </div>
+                                <div class="item result">
+                                  <p>Ƀ {{ result.BTC }}</p>
+                                </div>
+                                
+                                  
+                                  
+                         
+                           </div>  
+                           </div></span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p3')"><p hidden id="p3">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/DEVa.png" alt="Product 4" />
+                            <h3 class="product__title">Deviant</h3>
+                            <span class="product__year extra highlight"><strong>ROI:</strong> 90%</span>
+                            <span class="product__region extra highlight"><strong>Masternode:</strong> 5,000 DEV</span>
+                            <span class="product__varietal extra highlight"><strong>Launched:</strong> June 21, 2018</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight"><div class="container" id="app4">
+
+                                
+                                <div v-for="(result, index) in results4">
+                         
+                                  
+                                   
+                                <div class="item result">
+                                  <p>$ {{ result.USD }}</p>
+                                </div>
+                                <div class="item result">
+                                  <p>Ƀ {{ result.BTC }}</p>
+                                </div>
+                                
+                                  
+                                  
+                         
+                           </div>  
+                           </div></span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p4')"><p hidden id="p4">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 5" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p5')"><p hidden id="p5">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 6" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p6')"><p hidden id="p6">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 7" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p7')"><p hidden id="p7">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 8" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p8')"><p hidden id="p8">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 9" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p9')"><p hidden id="p9">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 10" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p10')"><p hidden id="p10">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 11" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p11')"><p hidden id="p11">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                    <div class="product">
+                        <div class="product__info">
+                            <img class="product__image" src="images/1.png" alt="Product 12" />
+                            <h3 class="product__title">TBA</h3>
+                            <span class="product__year extra highlight">ROI: 70%</span>
+                            <span class="product__region extra highlight">Masternode: 5,000 BWK</span>
+                            <span class="product__varietal extra highlight">Launched: December 01, 2017</span>
+                            <span class="product__alcohol extra highlight"><strong>Features:</strong> POS / MN</span>
+                            <span class="product__price highlight">$19.90</span>
+                            <button class="action action--button action--buy" onclick="copyToClipboard('#p12')"><p hidden id="p12">Coming soon</p><i class="fa fa-cloud-download-alt"></i><span class="action__text">Copy Script</span></button>
+                        </div>
+                        <label class="action action--compare-add"><input class="check-hidden" type="checkbox" /><i class="fa fa-plus"></i><i class="fa fa-check"></i><span class="action__text action__text--invisible">Add to compare</span></label>
+                    </div>
+                </section>
+                </div><!-- /view -->
+                <!-- product compare wrapper -->
+                <section class="compare">
+                    <button class="action action--close"><i class="fas fa-times"> Close</i><span class="action__text action__text--invisible">Close comparison overlay</span></button>
+                </section>
+            </body>
+       
+        
+        <script>
+     
+         (function() {
+        
+        var viewEl = document.querySelector('.view'),
+            gridEl = viewEl.querySelector('.grid'),
+            items = [].slice.call(gridEl.querySelectorAll('.product')),
+            basket;
+        
+        // the compare basket
+        function CompareBasket() {
+            this.el = document.querySelector('.compare-basket');
+            this.compareCtrl = this.el.querySelector('.action--compare');
+            this.compareWrapper = document.querySelector('.compare'),
+            this.closeCompareCtrl = this.compareWrapper.querySelector('.action--close')
+            
+            this.itemsAllowed = 3;
+            this.totalItems = 0;
+            this.items = [];
+        
+            // compares items in the compare basket: opens the compare products wrapper
+            this.compareCtrl.addEventListener('click', this._compareItems.bind(this));
+            // close the compare products wrapper
+            var self = this;
+            this.closeCompareCtrl.addEventListener('click', function() {
+                // toggle compare basket
+                classie.add(self.el, 'compare-basket--active');
+                // animate..
+                classie.remove(viewEl, 'view--compare');
+            });
+        }
+        
+        CompareBasket.prototype.add = function(item) {
+            // check limit
+            if( this.isFull() ) {
+                return false;
+            }
+        
+            classie.add(item, 'product--selected');
+        
+            // create item preview element
+            var preview = this._createItemPreview(item);
+            // prepend it to the basket
+            this.el.insertBefore(preview, this.el.childNodes[0]);
+            // insert item
+            this.items.push(preview);
+        
+            this.totalItems++;
+            if( this.isFull() ) {
+                classie.add(this.el, 'compare-basket--full');
+            }
+        
+            classie.add(this.el, 'compare-basket--active');
+        };
+        
+        CompareBasket.prototype._createItemPreview = function(item) {
+            var self = this;
+        
+            var preview = document.createElement('div');
+            preview.className = 'product-icon';
+            preview.setAttribute('data-idx', items.indexOf(item));
+            
+            var removeCtrl = document.createElement('button');
+            removeCtrl.className = 'action action--remove';
+            removeCtrl.innerHTML = '<i class="fas fa-times"></i><span class="action__text action__text--invisible">Remove product</span>';
+            removeCtrl.addEventListener('click', function() {
+                self.remove(item);
+            });
+            
+            var productImageEl = item.querySelector('img.product__image').cloneNode(true);
+        
+            preview.appendChild(productImageEl);
+            preview.appendChild(removeCtrl);
+        
+            var productInfo = item.querySelector('.product__info').innerHTML;
+            preview.setAttribute('data-info', productInfo);
+        
+            return preview;
+        };
+        
+        CompareBasket.prototype.remove = function(item) {
+            classie.remove(this.el, 'compare-basket--full');
+            classie.remove(item, 'product--selected');
+            var preview = this.el.querySelector('[data-idx = "' + items.indexOf(item) + '"]');
+            this.el.removeChild(preview);
+            this.totalItems--;
+        
+            var indexRemove = this.items.indexOf(preview);
+            this.items.splice(indexRemove, 1);
+        
+            if( this.totalItems === 0 ) {
+                classie.remove(this.el, 'compare-basket--active');
+            }
+        
+            // checkbox
+            var checkbox = item.querySelector('.action--compare-add > input[type = "checkbox"]');
+            if( checkbox.checked ) {
+                checkbox.checked = false;
+            }
+        };
+        
+        CompareBasket.prototype._compareItems = function() {
+            var self = this;
+        
+            // remove all previous items inside the compareWrapper element
+            [].slice.call(this.compareWrapper.querySelectorAll('div.compare__item')).forEach(function(item) {
+                self.compareWrapper.removeChild(item);
+            });
+        
+            for(var i = 0; i < this.totalItems; ++i) {
+                var compareItemWrapper = document.createElement('div');
+                compareItemWrapper.className = 'compare__item';
+        
+                var compareItemEffectEl = document.createElement('div');
+                compareItemEffectEl.className = 'compare__effect';
+        
+                compareItemEffectEl.innerHTML = this.items[i].getAttribute('data-info');
+                compareItemWrapper.appendChild(compareItemEffectEl);
+        
+                this.compareWrapper.insertBefore(compareItemWrapper, this.compareWrapper.childNodes[0]);
+            }
+        
+            setTimeout(function() {
+                // toggle compare basket
+                classie.remove(self.el, 'compare-basket--active');
+                // animate..
+                classie.add(viewEl, 'view--compare');
+            }, 25);
+        };
+        
+        CompareBasket.prototype.isFull = function() {
+            return this.totalItems === this.itemsAllowed;
+        };
+        
+        function init() {
+            // initialize an empty basket
+            basket = new CompareBasket();
+            initEvents();
+        }
+        
+        function initEvents() {
+            items.forEach(function(item) {
+                var checkbox = item.querySelector('.action--compare-add > input[type = "checkbox"]');
+                checkbox.checked = false;
+        
+                // ctrl to add to the "compare basket"
+                checkbox.addEventListener('click', function(ev) {
+                    if( ev.target.checked ) {
+                        if( basket.isFull() ) {
+                            ev.preventDefault();
+                            return false;
+                        }
+                        basket.add(item);
+                    }
+                    else {
+                        basket.remove(item);
+                    }
+                });
+            });
+        }
+        
+        init();
+        
+        })();
+        
+        
+        
+        </script>
+        <script>
+        /*!
+         * classie v1.0.1
+         * class helper functions
+         * from bonzo https://github.com/ded/bonzo
+         * MIT license
+         * 
+         * classie.has( elem, 'my-class' ) -> true/false
+         * classie.add( elem, 'my-new-class' )
+         * classie.remove( elem, 'my-unwanted-class' )
+         * classie.toggle( elem, 'my-class' )
+         */
+        
+        /*jshint browser: true, strict: true, undef: true, unused: true */
+        /*global define: false, module: false */
+        
+        ( function( window ) {
+        
+        'use strict';
+        
+        // class helper functions from bonzo https://github.com/ded/bonzo
+        
+        function classReg( className ) {
+          return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+        }
+        
+        // classList support for class management
+        // altho to be fair, the api sucks because it won't accept multiple classes at once
+        var hasClass, addClass, removeClass;
+        
+        if ( 'classList' in document.documentElement ) {
+          hasClass = function( elem, c ) {
+            return elem.classList.contains( c );
+          };
+          addClass = function( elem, c ) {
+            elem.classList.add( c );
+          };
+          removeClass = function( elem, c ) {
+            elem.classList.remove( c );
+          };
+        }
+        else {
+          hasClass = function( elem, c ) {
+            return classReg( c ).test( elem.className );
+          };
+          addClass = function( elem, c ) {
+            if ( !hasClass( elem, c ) ) {
+              elem.className = elem.className + ' ' + c;
+            }
+          };
+          removeClass = function( elem, c ) {
+            elem.className = elem.className.replace( classReg( c ), ' ' );
+          };
+        }
+        
+        function toggleClass( elem, c ) {
+          var fn = hasClass( elem, c ) ? removeClass : addClass;
+          fn( elem, c );
+        }
+        
+        var classie = {
+          // full names
+          hasClass: hasClass,
+          addClass: addClass,
+          removeClass: removeClass,
+          toggleClass: toggleClass,
+          // short names
+          has: hasClass,
+          add: addClass,
+          remove: removeClass,
+          toggle: toggleClass
+        };
+        
+        // transport
+        if ( typeof define === 'function' && define.amd ) {
+          // AMD
+          define( classie );
+        } else if ( typeof exports === 'object' ) {
+          // CommonJS
+          module.exports = classie;
+        } else {
+          // browser global
+          window.classie = classie;
+        }
+        
+        })( window );
+    
+        </script>
+        <script>
+        function copyToClipboard(element) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val($(element).text()).select();
+      document.execCommand("copy");
+      $temp.remove();
+    }
+    //Lazy table import (1 for each coin) -PIVX price 
+    const url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=PIVX&tsyms=USD,BTC";
+    
+    const vm = new Vue({
+        el: '#app',   
+        data: {
+         results: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url).then(response => {
+                  this.results = response.data
+                })
+           }
+        }
+    });
+    //Lazy table import (1 for each coin) -bulwark price 
+    const url2 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BWK&tsyms=USD,BTC";
+    
+    const vm2 = new Vue({
+        el: '#app2',   
+        data: {
+         results2: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url2).then(response => {
+                  this.results2 = response.data
+                })
+           }
+        }
+    });
+    
+    //Lazy table import (1 for each coin) -TBA price 
+    const url3 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=DASH&tsyms=USD,BTC";
+    
+    const vm3 = new Vue({
+        el: '#app3',   
+        data: {
+         results3: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url3).then(response => {
+                  this.results3 = response.data
+                })
+           }
+        }
+    });
+    
+    //Lazy table import (1 for each coin) -TBA price 
+    const url4 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=DEV&tsyms=USD,BTC";
+    
+    const vm4 = new Vue({
+        el: '#app4',   
+        data: {
+         results4: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url4).then(response => {
+                  this.results4 = response.data
+                })
+           }
+        }
+    });
+        </script>
+
+    <% include ../partials/footer %>
+    <script src='/js/support.js'></script>
+  </body>
+

@@ -9,7 +9,7 @@ exports.GetReferals = function(req, res)
         if (!status.active)
             return onError(req, res, status.message);
             
-        g_constants.dbTables['referals'].selectAll('pageFrom, timeReg, history', 'userFrom="'+escape(status.id)+'" AND timeReg*1<>0', 'ORDER BY timeIn*1 DESC LIMIT 50', (err, refs) => {
+        g_constants.dbTables['referals'].selectAll('pageFrom, timeReg, history', 'userFrom="'+escape(status.id)+'" AND timeReg*1<>0', 'ORDER BY timeIn*1 DESC LIMIT 50000', (err, refs) => {
             if (err || !refs) 
                 return onError(req, res, 'Database error1');
             

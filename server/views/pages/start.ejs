@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Abel">
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" href="https://pattern.kivan-works.com/fonts/kredit.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #eee;
+}
+
+.container p {
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  overflow: hidden;
+}
+.container p span.typed-text {
+  font-weight: normal;
+  color: #dd7732;
+}
+.container p span.cursor {
+  display: inline-block;
+  background-color: #ccc;
+  margin-left: 0.1rem;
+  width: 3px;
+  animation: blink 1s infinite;
+}
+.container p span.cursor.typing {
+  animation: none;
+}
+@keyframes blink {
+  0%  { background-color: #ccc; }
+  49% { background-color: #ccc; }
+  50% { background-color: transparent; }
+  99% { background-color: transparent; }
+  100%  { background-color: #ccc; }
+}
+.card_body {
+  padding: 0.75rem 1.75rem;
+}
+.active .floating:before {
+  opacity: 1;
+  transition: 500ms;
+}
+.floating:before {
+  font-family: "Quicksand";
+  font-weight: bold;
+  content: "";
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  position: absolute;
+  top: -70px;
+  opacity: 0;
+  transition: 300ms;
+  background: -webkit-linear-gradient(145deg, #4684c1, #343174);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.floating {
+  font-family: Inconsolata; 
+  margin: auto; 
+  width: 453px;
+  height: 280px;
+  box-shadow: -20px 14px 54px rgba(0, 0, 0, 0.55);
+  font-size: 18px;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  background: linear-gradient(145deg, #4684c1, #343174);
+  transform: rotateX(17deg) rotateY(18deg);
+}
+
+.logo {
+  height: 60px;
+  transform: translateZ(30px);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  font-weight: normal;
+  filter: drop-shadow(-6.4px 6.2px 8px rgba(0, 0, 0, 0.6));
+  z-index: 20;
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8' standalone='no'?%3E%3C!-- Created with Inkscape (http://www.inkscape.org/) --%3E%3Csvg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.0' width='110px' height='60px' viewBox='0 0 600 160' id='svg2268'%3E%3Cdefs id='defs2270' /%3E%3Cg transform='translate(-162.85714,-252.25207)' id='layer1'%3E%3Cg transform='matrix(2107.2671,0,0,2111.3537,195.14296,-1206.6414)' id='g2249'%3E%3Cpath d='M 148.625,506.09375 L 148.15625,506.125 L 147.6875,506.125 L 147.25,506.15625 L 146.34375,506.21875 L 145.46875,506.3125 L 144.625,506.4375 L 143.78125,506.5625 L 143,506.6875 L 142.21875,506.875 L 141.46875,507 L 140.71875,507.1875 L 140.03125,507.34375 L 139.34375,507.5 L 138.6875,507.65625 L 138.03125,507.8125 L 137.4375,507.96875 L 136.8125,508.0625 L 135.875,515.875 C 137.42498,515.13748 142.31253,513.78125 146.375,513.65625 C 150.42498,513.53127 152.82499,514.40002 152,517.875 C 139.95007,517.87497 131.81874,520.33755 130.15625,528.125 C 127.76877,541.49993 142.43129,541.13746 148.28125,535.3125 L 147.5625,538.53125 L 158.3125,538.53125 L 162.96875,517.25 C 164.88123,508.21253 156.64995,505.96875 149.125,506.09375 L 148.625,506.09375 z M 147.8125,525.03125 C 148.63749,525.03125 149.61251,525.03125 150.4375,525.03125 C 150.20001,526.01874 150.06875,526.88751 149.84375,527.875 L 149.78125,528.125 L 149.6875,528.40625 L 149.625,528.625 L 149.53125,528.875 L 149.4375,529.09375 L 149.3125,529.3125 L 149.21875,529.53125 L 149.09375,529.71875 L 148.96875,529.90625 L 148.8125,530.09375 L 148.6875,530.25 L 148.53125,530.4375 L 148.375,530.59375 L 148.1875,530.75 L 148,530.875 L 147.84375,531 L 147.65625,531.125 L 147.4375,531.25 L 147.25,531.34375 L 147.0625,531.4375 L 146.84375,531.5625 L 146.625,531.625 L 146.40625,531.71875 L 146.1875,531.78125 L 145.9375,531.84375 L 145.71875,531.90625 L 145.46875,531.9375 L 145.25,532 L 145,532.03125 L 144.75,532.0625 L 144.5,532.0625 L 144.21875,532.09375 C 141.83126,532.21878 139.68751,530.09998 141.25,527.625 C 142.4375,525.51252 145.77501,525.03125 147.8125,525.03125 z ' transform='scale(1.3888889e-3,1.3888889e-3)' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:%23FFFFFF;fill-opacity:1;fill-rule:evenodd;stroke:%23FFFFFF;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1' id='path42' /%3E%3Cpolygon points='155.71,285.86 148.61,253.18 157.34,253.18 164.53,285.86 155.71,285.86 ' transform='matrix(1.7361e-3,0,0,-1.7361e-3,-3.125e-2,1.1875)' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:%23FFFFFF;fill-opacity:1;fill-rule:evenodd;stroke:%23FFFFFF;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1' id='polygon44' /%3E%3Cpath d='M 102.0625,497.8125 L 93.21875,538.53125 L 104.8125,538.53125 L 107.8125,525.03125 L 116.0625,525.03125 C 124.19995,525.03125 130.88751,520.0812 132.6875,511.65625 C 134.72498,502.1313 127.76871,497.8125 122.03125,497.8125 L 102.0625,497.8125 z M 111.875,506.09375 L 117.625,506.09375 C 120.61248,506.09375 122.4,508.56877 121.6875,511.65625 L 121.59375,511.9375 L 121.5,512.25 L 121.40625,512.5 L 121.3125,512.78125 L 121.1875,513.0625 L 121.03125,513.3125 L 120.875,513.59375 L 120.71875,513.84375 L 120.5625,514.09375 L 120.375,514.3125 L 120.1875,514.5625 L 120,514.78125 L 119.78125,515 L 119.5625,515.21875 L 119.34375,515.40625 L 119.125,515.625 L 118.875,515.8125 L 118.625,515.96875 L 118.375,516.125 L 118.125,516.28125 L 117.875,516.4375 L 117.625,516.5625 L 117.34375,516.6875 L 117.09375,516.8125 L 116.8125,516.90625 L 116.53125,517 L 116.25,517.0625 L 115.96875,517.125 L 115.6875,517.1875 L 115.4375,517.21875 L 115.125,517.21875 L 114.875,517.25 L 109.46875,517.25 L 111.875,506.09375 z ' transform='scale(1.3888889e-3,1.3888889e-3)' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:%23FFFFFF;fill-opacity:1;fill-rule:evenodd;stroke:%23FFFFFF;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1' id='path48' /%3E%3Cpath d='M 44.0625,506.09375 L 43.59375,506.125 L 43.15625,506.125 L 42.6875,506.15625 L 41.8125,506.21875 L 40.9375,506.3125 L 40.09375,506.4375 L 39.28125,506.5625 L 38.5,506.6875 L 37.75,506.875 L 37,507 L 36.28125,507.1875 L 35.59375,507.34375 L 34.9375,507.5 L 34.28125,507.65625 L 33.6875,507.8125 L 33.09375,507.96875 L 32.53125,508.0625 L 31.59375,515.875 C 33.004992,515.13748 37.840026,513.78125 41.84375,513.65625 C 45.852475,513.53127 48.208745,514.40002 47.5,517.875 C 35.596327,517.87497 27.588739,520.33755 25.9375,528.125 C 23.580015,541.49993 38.063786,541.13746 43.71875,535.3125 L 43,538.53125 L 53.75,538.53125 L 58.34375,517.25 C 60.233738,508.21253 51.952453,505.96875 44.53125,506.09375 L 44.0625,506.09375 z M 43.25,525.03125 C 44.192495,525.03125 45.026256,525.03125 45.96875,525.03125 C 45.733752,526.01874 45.497499,526.88751 45.375,527.875 L 45.3125,528.125 L 45.25,528.40625 L 45.15625,528.625 L 45.0625,528.875 L 44.96875,529.09375 L 44.84375,529.3125 L 44.75,529.53125 L 44.625,529.71875 L 44.46875,529.90625 L 44.34375,530.09375 L 44.1875,530.25 L 44.03125,530.4375 L 43.875,530.59375 L 43.6875,530.75 L 43.53125,530.875 L 43.34375,531 L 43.15625,531.125 L 42.9375,531.25 L 42.75,531.34375 L 42.53125,531.4375 L 42.3125,531.5625 L 42.09375,531.625 L 41.875,531.71875 L 41.65625,531.78125 L 41.4375,531.84375 L 41.1875,531.90625 L 40.9375,531.9375 L 40.71875,532 L 40.46875,532.03125 L 40.21875,532.0625 L 39.96875,532.0625 L 39.71875,532.09375 C 37.360016,532.21878 35.34126,530.09998 36.875,527.625 C 38.051242,525.51252 41.365012,525.03125 43.25,525.03125 z ' transform='scale(1.3888889e-3,1.3888889e-3)' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:%23FFFFFF;fill-opacity:1;fill-rule:evenodd;stroke:%23FFFFFF;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1' id='path52' /%3E%3Cpolygon points='68.406,278.65 76.984,278.65 78.367,263.48 86.762,278.65 95.613,278.65 75.23,242.35 65.637,242.35 71.91,253.02 68.406,278.65 ' transform='matrix(1.7361e-3,0,0,-1.7361e-3,-3.125e-2,1.1875)' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:%23FFFFFF;fill-opacity:1;fill-rule:evenodd;stroke:%23FFFFFF;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1' id='polygon54' /%3E%3Cpath d='M -2.15625,497.8125 L -11.03125,538.53125 L 0.71875,538.53125 L 3.59375,525.03125 L 12,525.03125 C 20.031199,525.03125 26.735011,520.0812 28.53125,511.65625 C 30.567487,502.1313 23.748712,497.8125 17.875,497.8125 L -2.15625,497.8125 z M 7.8125,506.09375 L 13.5625,506.09375 C 16.438731,506.09375 18.339995,508.56877 17.5,511.65625 L 17.4375,511.9375 L 17.34375,512.25 L 17.25,512.5 L 17.125,512.78125 L 17,513.0625 L 16.875,513.3125 L 16.75,513.59375 L 16.59375,513.84375 L 16.40625,514.09375 L 16.25,514.3125 L 16.0625,514.5625 L 15.875,514.78125 L 15.65625,515 L 15.4375,515.21875 L 15.21875,515.40625 L 15,515.625 L 14.78125,515.8125 L 14.53125,515.96875 L 14.3125,516.125 L 14.0625,516.28125 L 13.78125,516.4375 L 13.53125,516.5625 L 13.28125,516.6875 L 13,516.8125 L 12.75,516.90625 L 12.46875,517 L 12.1875,517.0625 L 11.90625,517.125 L 11.625,517.1875 L 11.34375,517.21875 L 11.0625,517.21875 L 10.78125,517.25 L 5.28125,517.25 L 7.8125,506.09375 z ' transform='scale(1.3888889e-3,1.3888889e-3)' style='font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:normal;word-spacing:normal;text-anchor:start;fill:%23FFFFFF;fill-opacity:1;fill-rule:evenodd;stroke:%23FFFFFF;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10.43299961;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1' id='path58' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.chips {
+  margin-top: 17px;
+  margin-left: -1px;
+  height: 70px;
+  width: 80px;
+  filter: drop-shadow(-6.4px 6.2px 8px rgba(0, 0, 0, 0.6));
+  transform: translateZ(25px);
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='50px' x='0px' y='0px' viewBox='0 0 40 40' style='enable-background:new 0 0 40 40;' xml:space='preserve'%3E%3Cg id='surface1'%3E%3Cpath fill='%23F5CE85' d='M8.9,34.5c-6.4,0.1-6.4,0.1-6.4-6.4V11.9c0-3.5-0.1-6.4,3.4-6.4h25.3c6.4,0,6.4,0,6.4,6.4v16.3 c0,6.4,0,6.4-6.4,6.4L8.9,34.5z'/%3E%3Cpath fill='%23967A44' d='M31.1,6C37,6,37,6,37,11.9v16.3c0,5.9,0,5.9-5.9,5.9H8.9c-5.9,0-5.9,0-5.9-6V11.9C3,8.2,2.7,6,6,6H31.1 M31.1,5H9.2C2.3,5,2,5,2,11.9v16.3C2,35,2,35,8.9,35h22.3c6.9-0.1,6.9-0.1,6.9-6.9V11.9C38.1,5,38.1,5,31.1,5z'/%3E%3Cpath fill='%23967A44' d='M29,35c-3.3,0-6-2.7-6-6s2.7-6,6-6h8.5v1H29c-2.8,0-5,2.2-5,5s2.2,5,5,5V35z'/%3E%3Cpath fill='%23967A44' d='M11,35v-1c2.8,0,5-2.2,5-5s-2.2-5-5-5H2.5v-1H11c3.3,0,6,2.7,6,6S14.3,35,11,35z'/%3E%3Cpath fill='%23967A44' d='M37.5,17H27c-2.2,0-4-1.8-4-4s1.8-4,4-4h2.1v1H27c-1.7,0-3,1.3-3,3s1.3,3,3,3h10.5V17z'/%3E%3Cpath fill='%23967A44' d='M28,16h1v7.5h-1V16z'/%3E%3Cpath fill='%23967A44' d='M13,17H2.5v-1H13c1.7,0,3-1.3,3-3s-1.3-3-3-3h-2.1V9H13c2.2,0,4,1.8,4,4S15.2,17,13,17z'/%3E%3Cpath fill='%23967A44' d='M11,16h1v7.5h-1V16z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.paywave {
+  transform: translateZ(30px);
+  float: right;
+  position: absolute;
+  margin: 15px 5px;
+  top: 0;
+  right: 0;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(-6.4px 6.2px 8px rgba(0, 0, 0, 0.6));
+  height: 50px;
+  width: 50px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='56' viewBox='0 0 46 56'%3E%3Ctitle%3EContactlessIndicator 000%3C/title%3E%3Cpath fill='none' stroke='%23FFF' stroke-width='6' stroke-linecap='round' d='m35,3a50,50 0 0,1 0,50M24,8.5a39,39 0 0,1 0,39M13.5,13.55a28.2,28.5 0 0,1 0,28.5M3,19a18,17 0 0,1 0,18'/%3E%3C/svg%3E");
+}
+
+.paypal_center {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateZ(5px);
+  margin-left: -75px;
+  z-index: 1;
+  filter: drop-shadow(-6.4px 6.2px 8px rgba(0, 0, 0, 0.6));
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='150px' height='252px' viewBox='0 0 256 302' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' preserveAspectRatio='xMidYMid'%3E%3Cg%3E%3Cpath d='M217.168476,23.5070146 C203.234077,7.62479651 178.045612,0.815753338 145.823355,0.815753338 L52.3030619,0.815753338 C45.7104431,0.815753338 40.1083819,5.6103852 39.0762042,12.1114399 L0.136468302,259.076601 C-0.637664968,263.946149 3.13311322,268.357876 8.06925331,268.357876 L65.804612,268.357876 L80.3050438,176.385849 L79.8555471,179.265958 C80.8877248,172.764903 86.4481659,167.970272 93.0324607,167.970272 L120.46841,167.970272 C174.366398,167.970272 216.569147,146.078116 228.897012,82.7490197 C229.263268,80.8761167 229.579581,79.0531577 229.854273,77.2718188 C228.297683,76.4477414 228.297683,76.4477414 229.854273,77.2718188 C233.525163,53.8646924 229.829301,37.9325302 217.168476,23.5070146' fill='%2327346A'%3E%3C/path%3E%3Cpath d='M102.396976,68.8395929 C103.936919,68.1070797 105.651665,67.699203 107.449652,67.699203 L180.767565,67.699203 C189.449511,67.699203 197.548776,68.265236 204.948824,69.4555699 C207.071448,69.7968545 209.127479,70.1880831 211.125242,70.6375799 C213.123006,71.0787526 215.062501,71.5781934 216.943728,72.1275783 C217.884341,72.4022708 218.808307,72.6852872 219.715624,72.9849517 C223.353218,74.2002577 226.741092,75.61534 229.854273,77.2718188 C233.525163,53.8563683 229.829301,37.9325302 217.168476,23.5070146 C203.225753,7.62479651 178.045612,0.815753338 145.823355,0.815753338 L52.2947379,0.815753338 C45.7104431,0.815753338 40.1083819,5.6103852 39.0762042,12.1114399 L0.136468302,259.068277 C-0.637664968,263.946149 3.13311322,268.349552 8.0609293,268.349552 L65.804612,268.349552 L95.8875974,77.5798073 C96.5035744,73.6675208 99.0174265,70.4627756 102.396976,68.8395929 Z' fill='%2327346A'%3E%3C/path%3E%3Cpath d='M228.897012,82.7490197 C216.569147,146.069792 174.366398,167.970272 120.46841,167.970272 L93.0241367,167.970272 C86.4398419,167.970272 80.8794007,172.764903 79.8555471,179.265958 L61.8174095,293.621258 C61.1431644,297.883153 64.4394738,301.745495 68.7513129,301.745495 L117.421821,301.745495 C123.182038,301.745495 128.084882,297.550192 128.983876,291.864891 L129.458344,289.384335 L138.631407,231.249423 L139.222412,228.036354 C140.121406,222.351053 145.02425,218.15575 150.784467,218.15575 L158.067979,218.15575 C205.215193,218.15575 242.132193,199.002194 252.920115,143.605884 C257.423406,120.456802 255.092683,101.128442 243.181019,87.5519756 C239.568397,83.4399129 235.081754,80.0437153 229.854273,77.2718188 C229.571257,79.0614817 229.263268,80.8761167 228.897012,82.7490197 L228.897012,82.7490197 Z' fill='%232790C3'%3E%3C/path%3E%3Cpath d='M216.952052,72.1275783 C215.070825,71.5781934 213.13133,71.0787526 211.133566,70.6375799 C209.135803,70.1964071 207.071448,69.8051785 204.957148,69.4638939 C197.548776,68.265236 189.457835,67.699203 180.767565,67.699203 L107.457976,67.699203 C105.651665,67.699203 103.936919,68.1070797 102.4053,68.8479169 C99.0174265,70.4710996 96.5118984,73.6675208 95.8959214,77.5881313 L80.3133678,176.385849 L79.8638711,179.265958 C80.8877248,172.764903 86.4481659,167.970272 93.0324607,167.970272 L120.476734,167.970272 C174.374722,167.970272 216.577471,146.078116 228.905336,82.7490197 C229.271592,80.8761167 229.579581,79.0614817 229.862597,77.2718188 C226.741092,75.623664 223.361542,74.2002577 219.723948,72.9932757 C218.816631,72.6936112 217.892665,72.4022708 216.952052,72.1275783' fill='%231F264F'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+}
+
+.card_no {
+  transform: translateZ(40px);
+  font-family: kredit-front;
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #fff;
+  position: absolute;
+  letter-spacing: 3px;
+  bottom: 90px;
+  z-index: 2;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  text-shadow: -9px 8.7px 6px rgba(0, 0, 0, 0.8);
+  width: calc(100% - 3.5rem);
+  text-align: center;
+}
+
+.valid {
+  position: absolute;
+  bottom: 56px;
+  color: #fff;
+  font-size: 0.58rem;
+  left: 146px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  text-shadow: -9px 8.7px 6px rgba(0, 0, 0, 0.8);
+  transform: translateZ(30px);
+}
+
+.valid_date {
+  position: absolute;
+  font-family: kredit-front;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  text-shadow: -9px 8.7px 6px rgba(0, 0, 0, 0.8);
+  bottom: 54px;
+  left: 180px;
+  z-index: 20;
+  transform: translateZ(30px);
+  letter-spacing: 2px;
+}
+
+.holder {
+  position: absolute;
+  font-family: kredit-front;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  text-shadow: -9px 8.7px 6px rgba(0, 0, 0, 0.8);
+  bottom: 20px;
+  left: 30px;
+  z-index: 20;
+  letter-spacing: 2px;
+  transform: translateZ(50px);
+}
+
+.mastercard_icon {
+  height: 85px;
+  width: 95px;
+  float: right;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateZ(30px);
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(-6.4px 6.2px 8px rgba(0, 0, 0, 0.6));
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='75' height='75' viewBox='0 0 200 155' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23'%3E%3Cmetadata%3E%3Crdf:RDF%3E%3Ccc:Work rdf:about=''%3E%3Cdc:format%3Eimage/svg+xml%3C/dc:format%3E%3Cdc:type rdf:resource='http://purl.org/dc/dcmitype/StillImage'/%3E%3Cdc:title/%3E%3C/cc:Work%3E%3C/rdf:RDF%3E%3C/metadata%3E%3Cg transform='translate(1565.7 -1106.8)'%3E%3Cg transform='matrix(3.1437 0 0 3.1437 -4835.7 -1027.6)'%3E%3Cg transform='matrix(1.25 0 0 -1.25 1102.5 727.74)'%3E%3Cpath d='m0 0v-0.103h0.095c0.021 0 0.039 5e-3 0.052 0.013 0.012 8e-3 0.019 0.022 0.019 0.039s-7e-3 0.03-0.019 0.038c-0.013 9e-3 -0.031 0.013-0.052 0.013zm0.096 0.072c0.049 0 0.087-0.011 0.114-0.033s0.04-0.052 0.04-0.09c0-0.032-0.01-0.058-0.032-0.079-0.021-0.02-0.051-0.033-0.091-0.038l0.126-0.145h-0.098l-0.117 0.144h-0.038v-0.144h-0.082v0.385zm-0.025-0.518c0.045 0 0.087 9e-3 0.125 0.026 0.039 0.017 0.073 0.04 0.102 0.069s0.052 0.063 0.069 0.103c0.016 0.039 0.025 0.081 0.025 0.126s-9e-3 0.087-0.025 0.126c-0.017 0.039-0.04 0.074-0.069 0.103s-0.063 0.052-0.102 0.069c-0.038 0.016-0.08 0.024-0.125 0.024s-0.088-8e-3 -0.127-0.024c-0.04-0.017-0.075-0.04-0.104-0.069s-0.052-0.064-0.068-0.103c-0.017-0.039-0.025-0.081-0.025-0.126s8e-3 -0.087 0.025-0.126c0.016-0.04 0.039-0.074 0.068-0.103s0.064-0.052 0.104-0.069c0.039-0.017 0.082-0.026 0.127-0.026m0 0.739c0.059 0 0.113-0.011 0.165-0.033 0.051-0.021 0.095-0.051 0.134-0.089 0.038-0.037 0.068-0.081 0.09-0.132 0.022-0.05 0.033-0.104 0.033-0.161s-0.011-0.111-0.033-0.161-0.052-0.094-0.09-0.132c-0.039-0.037-0.083-0.067-0.134-0.089-0.052-0.022-0.106-0.033-0.165-0.033-0.06 0-0.115 0.011-0.167 0.033s-0.097 0.052-0.135 0.089c-0.038 0.038-0.068 0.082-0.09 0.132s-0.033 0.104-0.033 0.161 0.011 0.111 0.033 0.161c0.022 0.051 0.052 0.095 0.09 0.132 0.038 0.038 0.083 0.068 0.135 0.089 0.052 0.022 0.107 0.033 0.167 0.033m-38.961 1.483c0 0.734 0.481 1.337 1.267 1.337 0.751 0 1.258-0.577 1.258-1.337s-0.507-1.337-1.258-1.337c-0.786 0-1.267 0.603-1.267 1.337m3.381 0v2.088h-0.908v-0.507c-0.288 0.376-0.725 0.612-1.319 0.612-1.171 0-2.089-0.918-2.089-2.193 0-1.276 0.918-2.193 2.089-2.193 0.594 0 1.031 0.236 1.319 0.612v-0.507h0.908zm30.684 0c0 0.734 0.481 1.337 1.267 1.337 0.752 0 1.258-0.577 1.258-1.337s-0.506-1.337-1.258-1.337c-0.786 0-1.267 0.603-1.267 1.337m3.382 0v3.765h-0.909v-2.184c-0.288 0.376-0.725 0.612-1.319 0.612-1.171 0-2.089-0.918-2.089-2.193 0-1.276 0.918-2.193 2.089-2.193 0.594 0 1.031 0.236 1.319 0.612v-0.507h0.909zm-22.795 1.38c0.585 0 0.961-0.367 1.057-1.013h-2.167c0.097 0.603 0.463 1.013 1.11 1.013m0.018 0.813c-1.224 0-2.08-0.891-2.08-2.193 0-1.328 0.891-2.193 2.141-2.193 0.629 0 1.205 0.157 1.712 0.585l-0.445 0.673c-0.35-0.279-0.796-0.437-1.215-0.437-0.585 0-1.118 0.271-1.249 1.023h3.101c9e-3 0.113 0.018 0.227 0.018 0.349-9e-3 1.302-0.813 2.193-1.983 2.193m10.964-2.193c0 0.734 0.481 1.337 1.267 1.337 0.751 0 1.258-0.577 1.258-1.337s-0.507-1.337-1.258-1.337c-0.786 0-1.267 0.603-1.267 1.337m3.381 0v2.088h-0.908v-0.507c-0.289 0.376-0.725 0.612-1.319 0.612-1.171 0-2.089-0.918-2.089-2.193 0-1.276 0.918-2.193 2.089-2.193 0.594 0 1.03 0.236 1.319 0.612v-0.507h0.908zm-8.509 0c0-1.267 0.882-2.193 2.228-2.193 0.629 0 1.048 0.14 1.502 0.498l-0.436 0.734c-0.341-0.245-0.699-0.376-1.093-0.376-0.725 9e-3 -1.258 0.533-1.258 1.337s0.533 1.328 1.258 1.337c0.394 0 0.752-0.131 1.093-0.376l0.436 0.734c-0.454 0.358-0.873 0.498-1.502 0.498-1.346 0-2.228-0.926-2.228-2.193m11.707 2.193c-0.524 0-0.865-0.245-1.101-0.612v0.507h-0.9v-4.176h0.909v2.341c0 0.691 0.297 1.075 0.891 1.075 0.184 0 0.376-0.026 0.568-0.105l0.28 0.856c-0.201 0.079-0.463 0.114-0.647 0.114m-24.341-0.437c-0.437 0.288-1.039 0.437-1.703 0.437-1.058 0-1.739-0.507-1.739-1.337 0-0.681 0.507-1.101 1.441-1.232l0.429-0.061c0.498-0.07 0.733-0.201 0.733-0.437 0-0.323-0.332-0.507-0.952-0.507-0.629 0-1.083 0.201-1.389 0.437l-0.428-0.707c0.498-0.367 1.127-0.542 1.808-0.542 1.206 0 1.905 0.568 1.905 1.363 0 0.734-0.55 1.118-1.459 1.249l-0.428 0.062c-0.393 0.052-0.708 0.13-0.708 0.41 0 0.306 0.297 0.489 0.795 0.489 0.533 0 1.049-0.201 1.302-0.358zm11.716 0.437c-0.524 0-0.865-0.245-1.1-0.612v0.507h-0.9v-4.176h0.908v2.341c0 0.691 0.297 1.075 0.891 1.075 0.184 0 0.376-0.026 0.568-0.105l0.28 0.856c-0.201 0.079-0.463 0.114-0.647 0.114m-7.749-0.105h-1.485v1.267h-0.918v-1.267h-0.847v-0.83h0.847v-1.905c0-0.969 0.376-1.546 1.45-1.546 0.394 0 0.848 0.122 1.136 0.323l-0.262 0.778c-0.271-0.157-0.568-0.236-0.804-0.236-0.454 0-0.602 0.28-0.602 0.699v1.887h1.485zm-13.577-4.176v2.621c0 0.987-0.629 1.651-1.643 1.66-0.533 9e-3 -1.083-0.157-1.468-0.743-0.288 0.463-0.742 0.743-1.38 0.743-0.446 0-0.882-0.131-1.223-0.62v0.515h-0.909v-4.176h0.917v2.315c0 0.725 0.402 1.11 1.023 1.11 0.603 0 0.908-0.393 0.908-1.101v-2.324h0.918v2.315c0 0.725 0.419 1.11 1.022 1.11 0.62 0 0.917-0.393 0.917-1.101v-2.324z' fill='%23FFFFFF'/%3E%3C/g%3E%3Cg transform='matrix(1.25 0 0 -1.25 1103.2 710.77)'%3E%3Cpath d='m0 0v0.61h-0.159l-0.184-0.419-0.183 0.419h-0.16v-0.61h0.113v0.46l0.172-0.397h0.117l0.172 0.398v-0.461zm-1.009 0v0.506h0.204v0.103h-0.52v-0.103h0.204v-0.506z' fill='%23f79410'/%3E%3C/g%3E%3Cpath d='m1080.6 714.05h-17.202v-30.915h17.202z' fill='%23ff5f00'/%3E%3Cg transform='matrix(1.25 0 0 -1.25 1064.5 698.59)'%3E%3Cpath d='m0 0c0 5.017 2.349 9.486 6.007 12.366-2.675 2.106-6.051 3.363-9.72 3.363-8.686 0-15.727-7.042-15.727-15.729s7.041-15.729 15.727-15.729c3.669 0 7.045 1.257 9.72 3.363-3.658 2.88-6.007 7.349-6.007 12.366' fill='%23eb001b'/%3E%3C/g%3E%3Cg transform='matrix(1.25 0 0 -1.25 1103.8 698.59)'%3E%3Cpath d='m0 0c0-8.687-7.041-15.729-15.727-15.729-3.669 0-7.045 1.257-9.721 3.363 3.659 2.88 6.008 7.349 6.008 12.366s-2.349 9.486-6.008 12.366c2.676 2.106 6.052 3.363 9.721 3.363 8.686 0 15.727-7.042 15.727-15.729' fill='%23f79e1b'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.thickness {
+  width: 453px;
+  height: 280px;
+  border-radius: 8px;
+  position: absolute;
+  background: linear-gradient(145deg, #020808, #0F5354);
+  transform: translateZ(-4px);
+}
+.thickness:nth-child(2) {
+  transform: translateZ(-8px);
+}
+.thickness:nth-child(3) {
+  transform: translateZ(-11px);
+}
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+body {
+  font-family: Montserrat, sans-serif;
+}
+
+#features {
+  background: linear-gradient(rgba(2,8,8, 0.95), rgba(15,83,84, 0.95)), url(https://images.unsplash.com/photo-1556834234-ff0f846f83cb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 3rem 0;
+}
+
+.features-inner {
+  padding: 2rem;
+}
+@media (min-width: 600px) {
+  .features-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 0;
+  }
+}
+@media (min-width: 800px) {
+  .features-inner {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+@media (min-width: 900px) {
+  .features-inner {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+.features-image {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+@media (min-width: 600px) {
+  .features-image {
+    grid-row: 1/span 2;
+  }
+}
+@media (min-width: 900px) {
+  .features-image {
+    grid-column: 2;
+  }
+}
+.features-image img {
+  -webkit-filter: drop-shadow(1px 1px 20px rgba(0, 0, 0, 0.4));
+          filter: drop-shadow(1px 1px 20px rgba(0, 0, 0, 0.4));
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-item {
+  transition: opacity 200ms ease;
+}
+.features-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.features-item-header,
+.features-item-text {
+  color: white;
+}
+
+.features-item-header {
+  margin-bottom: 0;
+  font-size: 1.4rem;
+}
+
+.features-item-text {
+  margin-top: 0.3rem;
+}
+
+@media (min-width: 900px) {
+  .list-1 {
+    text-align: right;
+  }
+}
+@media (min-width: 600px) {
+  .list-2 {
+    grid-column: 2;
+  }
+  .list-2 .features-item-header:first-child {
+    margin-top: 0;
+  }
+}
+@media (min-width: 900px) {
+  .list-2 {
+    grid-column: 3;
+  }
+  .list-2 .features-item-header:first-child {
+    margin-top: 1.45rem;
+  }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,200,300,800);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+figure.snip0056 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 380px;
+  max-width: 480px;
+  width: 100%;
+  background: #ffffff;
+  color: #000000;
+}
+figure.snip0056 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+figure.snip0056 > img {
+  width: 50%;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  -webkit-transform: scale(1.6);
+  transform: scale(1.6);
+  position: relative;
+  float: right;
+  right: -15%;
+  z-index: 1;
+}
+figure.snip0056 figcaption {
+  padding: 20px 30px 20px 20px;
+  position: absolute;
+  left: 0;
+  width: 50%;
+}
+figure.snip0056 figcaption h2,
+figure.snip0056 figcaption p {
+  margin: 0;
+  text-align: left;
+  padding: 10px 0;
+  width: 100%;
+}
+figure.snip0056 figcaption h2 {
+  font-size: 1.3em;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+figure.snip0056 figcaption h2 span {
+  font-weight: 800;
+}
+figure.snip0056 figcaption p {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+figure.snip0056 figcaption .icons {
+  width: 100%;
+  text-align: left;
+}
+figure.snip0056 figcaption .icons i {
+  font-size: 26px;
+  padding: 5px;
+  top: 50%;
+  color: #000000;
+}
+figure.snip0056 figcaption a {
+  opacity: 0.3;
+  -webkit-transition: opacity 0.35s;
+  transition: opacity 0.35s;
+}
+figure.snip0056 figcaption a:hover {
+  opacity: 0.8;
+}
+figure.snip0056 .position {
+  width: 100%;
+  text-align: left;
+  padding: 15px 30px;
+  font-size: 0.9em;
+  opacity: 1;
+  font-style: italic;
+  color: #ffffff;
+  background: rgb(7, 7, 7);
+  clear: both;
+}
+figure.snip0056.blue .position {
+  background: #20638f;
+}
+figure.snip0056.red .position {
+  background: #962d22;
+}
+figure.snip0056.yellow .position {
+  background: rgb(7, 7, 7);
+}
+
+figure.snip0056:hover > img,
+figure.snip0056.hover > img {
+  right: -12%;
+}
+
+
+    </style>
+
+    <% include ../partials/head %>
+  <body style= "min-width: 375px;">
+      <% include ../partials/header %>
+    <div style="height: 50vh; background-color: #111111; overflow: hidden; border-top: solid 5px  rgb(0, 0, 0);  border-bottom: solid 5px  rgb(0, 0, 0); background-image: url(/backgroundpng.jpg); background-size:cover; background-repeat: no-repeat;">
+
+      <div class="container" style="  height: 50vh; display: block; justify-content: center; align-items: center; color:#45c7c7; font-size: 9vh;">
+
+            <div style="width: 100%; float: right; margin-top: 8vh;">
+              
+                <p style="margin-bottom: 0px; padding:0px; z-index: 51;">CurrencyUp Beta 0.0.1</p>
+                <p style="margin-bottom: 0px; padding:0px; z-index: 51">Listed coins <span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
+              
+         
+            </div>
+            <div style="width: 35%; float:left;">
+              <div style="float:left;">
+               
+              </div>
+             
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="height: 30vh; width: 100%; background-color:#1A2633; border-bottom: solid 5px  rgb(0, 0, 0);">
+
+      <div style="max-width: 1200px; height: 100%; width: 100%; margin:auto;  color: #dd7732; font-weight: bold;">
+     
+     
+        <div style="height:100%; width: 33.3%; float:left; background-color:#1A2633; border: 2px solid rgb(24, 27, 31);">
+        
+          <div style="height: 100%; width: 100%;"><img src="/banner1.png" style="height: 80%;"></img> <div style="text-align: center; font-size: 2vh;">Rapid Trading<br><p style="font-size: 1.25vh">Fill in fill in fill in</p></div></div>
+      </div>
+
+      <div style="height:100%; width: 33.3%; float:left; background-color:#1A2633; border: 2px solid rgb(24, 27, 31);">
+        <div style="height: 100%; width: 100%;"><img src="/banner2.png" style="height:80%; width:100%;"></img><div style="text-align: center; font-size: 2vh;">Revenue Share <br><p style="font-size: 1.25vh">Fill in fill in fill in</p></div></div>
+      </div>
+     
+     
+      <div style="height:100%; width: 33.3%; float:left; background-color:#1A2633; border: 2px solid rgb(24, 27, 31);">
+        <div style="height: 100%; width: 100%;"><div style="width: 100%; height: 100%;"><img src="/banner3.png" style="float:right; height: 80%; "></img><div style="text-align: center; font-size: 2vh; float: right; width: 100%;">Global Outreach <br><p style="font-size: 1.25vh">Fill in fill in fill in</p></div></div></div>
+      </div>
+    
+    
+    
+    </div>
+  </div>
+   
+   
+   
+   
+   
+    <div style="height: 40vh; background-color: rgb(11, 12, 14); overflow: hidden;">
+
+      <div style="width: 40%; height: 50vh; float: left; zoom:0.5;">
+        <div style="margin-top: 15vh;">
+          <div style="float: right; margin-right: 2vh;">
+        <body class="active">
+          <div class="floating">
+            <div class="thickness"></div>
+            <div class="thickness"></div>
+            <div class="thickness"></div>
+            <div class="card_body">
+              <div class="paypal_center svg" style=" background-repeat: no-repeat;"></div>
+              <div class="logo svg" style="background-repeat: no-repeat;"></div>
+              <div class="paywave svg"></div>
+              <div class="chips svg"></div>
+              <div class="card_no text">
+                1234-5678-9012-3456
+              </div>
+              <div class="valid text">
+                VALID <br> THUR
+              </div>
+              <div class="valid_date text">
+                12/20
+              </div>
+              <div class="holder text">JOHN DOE</div>
+              <div class="mastercard_icon svg"></div>
+        
+            </div>
+          </div>
+          </div>
+        </body>
+      </div>
+    </div>
+      <div style="width: 60%; height: 40vh; float: right; margin-top: 6vh; font-size: 3vh; font-weight: bold; color: #dd7732; min-width: 225px;">
+        <div style="float: left; width: 95%; margin-left: 2vh;">
+<p style="border-bottom: 2px solid rgb(0, 0, 0); max-width: 603px;">Buy and Sell Bitcoin and Ethereum with Dollars and Euros</p>
+      <p style="font-weight: normal; font-size: 2vh; max-width: 603px;">CurrencyUp provides secure and reliable trading of the Dollar (USD) and Euro (EUR) with Bitcoin (BTC) and Litecoin (LTC), in addition to digital asset management services to users from around the world.</p>
+</div>
+</div>
+    </div>
+
+
+    <section id="features" style="border-top: solid 5px  rgb(0, 0, 0);">
+      <div class="features-inner">
+        <div class="features-image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-1.png"/></div>
+        <ul class="features-list list-1">
+          <li class="features-item" data-src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-1.png">
+            <h3 class="features-item-header">CurrencyUp Shares</h3>
+            <p class="features-item-text">I don’t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.</p>
+          </li>
+          <li class="features-item" data-src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-2.png">
+            <h3 class="features-item-header">Low Trading Fees</h3>
+            <p class="features-item-text">I don’t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.</p>
+          </li>
+          <li class="features-item" data-src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-3.png">
+            <h3 class="features-item-header">Big Selection</h3>
+            <p class="features-item-text">I don’t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.</p>
+          </li>
+        </ul>
+        <ul class="features-list list-2">
+          <li class="features-item" data-src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-4.png">
+            <h3 class="features-item-header">Affiliation System</h3>
+            <p class="features-item-text">I don’t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.</p>
+          </li>
+          <li class="features-item" data-src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-5.png">
+            <h3 class="features-item-header">Free Listings</h3>
+            <p class="features-item-text">I don’t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.</p>
+          </li>
+          <li class="features-item" data-src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/495197/phone-6.png">
+            <h3 class="features-item-header">Community based</h3>
+            <p class="features-item-text">I don’t mean to say that I know, of my own knowledge, what there is particularly dead about a door-nail.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+
+
+
+<div style="width: 100%; background-color: rgb(11, 12, 14); display: flex; justify-content: center; align-items: center; flex-flow: wrap; border-top: solid 5px  rgb(0, 0, 0);">
+<div style="margin-top: 5vh; height: 100%; width:80%; border: 4px solid rgb(0, 0, 0); background-color: rgb(7, 7, 7); min-width:350px;">
+<h2 style="font-size: 5vh; text-align: center; margin-top: 1.1vh; color: #dd7732;">CurrencyUp Markets</h2>
+</div>
+  <figure class="snip0056" style="border: solid 2px">
+    <figcaption>
+      <h2 style="margin-left: 10%">USD / <span>BTC</span></h2>
+      <div class="container" id="app" style="display:grid; font-size:2.2vh; text-decoration: none;">
+    
+                                    
+        <div v-for="(result, index) in results">
+ 
+          
+           
+        <div class="item result" style="float: left">
+          <p style="margin-top: 10%; font-weight: 800;">$ {{ result.USD }}</p>
+        </div>
+        <div class="item result" style="font-weight: 800;">
+          <p>Ƀ {{ result.BTC }}</p>
+        </div>
+   </div>  
+   </div> 
+      <div class="icons"><a href="#"><i class="ion-ios-home"></i></a><a href="#"><i class="ion-ios-email"></i></a><a href="#"><i class="ion-ios-telephone"></i></a></div>
+    </figcaption><img src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" alt="sample8" style="height:20vh; width: 20vh; margin-top:4vh; margin-right: 6vh;"/>
+    <a href="https://exchange.currencyup.com/market/BTC-USD">
+    <div class="position">Exchange Bitcoin (BTC)</div>
+  </a>
+  </figure>
+  <figure class="snip0056 yellow" style="border: solid 2px">
+    <figcaption>
+      <h2>BTC / <span>ETH</span></h2>
+      <div class="container" id="app2" style="display:grid; font-size:2.2vh; text-decoration: none;">
+    
+                                    
+        <div v-for="(result, index) in results2">
+ 
+          
+           
+        <div class="item result" style="float: left">
+          <p style="margin-top: 10%; font-weight: 800;">$ {{ result.USD }}</p>
+        </div>
+        <div class="item result" style="font-weight: 800;">
+          <p>Ƀ {{ result.BTC }}</p>
+        </div>
+   </div>  
+   </div> 
+      <div class="icons"><a href="#"><i class="ion-ios-home"></i></a><a href="#"><i class="ion-ios-email"></i></a><a href="#"><i class="ion-ios-telephone"></i></a></div>
+    </figcaption><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiiqwBEe3fgjrItNnhfP-SE_fKkBkfmerJi-e7f8s2vPYPYKgt" alt="sample8" style="height:20vh; width: 20vh; margin-top:4vh; margin-right: 6vh;"/>
+    <a href="https://exchange.currencyup.com/market/BTC-USD">
+      <div class="position">Exchange Ethereum (ETH)</div>
+    </a>
+  </figure>
+  <figure class="snip0056" style="border: solid 2px">
+    <figcaption>
+      <h2>BTC / <span>XRP</span></h2>
+      <div class="container" id="app3" style="display:grid; font-size:2.2vh; text-decoration: none;">
+    
+                                    
+        <div v-for="(result, index) in results3">
+ 
+          
+           
+        <div class="item result" style="float: left">
+          <p style="margin-top: 10%; font-weight: 800;">$ {{ result.USD }}</p>
+        </div>
+        <div class="item result" style="font-weight: 800;">
+          <p>Ƀ {{ result.BTC }}</p>
+        </div>
+   </div>  
+   </div> 
+      <div class="icons"><a href="#"><i class="ion-ios-home"></i></a><a href="#"><i class="ion-ios-email"></i></a><a href="#"><i class="ion-ios-telephone"></i></a></div>
+    </figcaption><img src="https://www.legitgamblingsites.com/wp-content/uploads/2018/12/RippleLogo.png" alt="sample8" style="height:20vh; width: 20vh; margin-top:4vh; margin-right: 6vh;"/>
+    <a href="https://exchange.currencyup.com/market/BTC-USD">
+      <div class="position">Exchange XRP (XRP)</div>
+    </a>
+  </figure>
+  <figure class="snip0056 yellow" style="border: solid 2px">
+    <figcaption>
+      <h2>BTC / <span>EOS</span></h2>
+      <div class="container" id="app4" style="display:grid; font-size:2.2vh; text-decoration: none;">
+    
+                                    
+        <div v-for="(result, index) in results4">
+ 
+          
+           
+        <div class="item result" style="float: left">
+          <p style="margin-top: 10%; font-weight: 800;">$ {{ result.USD }}</p>
+        </div>
+        <div class="item result" style="font-weight: 800;">
+          <p>Ƀ {{ result.BTC }}</p>
+        </div>
+   </div>  
+   </div> 
+      <div class="icons"><a href="#"><i class="ion-ios-home"></i></a><a href="#"><i class="ion-ios-email"></i></a><a href="#"><i class="ion-ios-telephone"></i></a></div>
+    </figcaption><img src="https://seeklogo.com/images/E/eos-logo-9E0494F783-seeklogo.com.png" alt="sample8" style="height:20vh; width: 20vh; margin-top:4vh; margin-right: 6vh;"/>
+    <a href="https://exchange.currencyup.com/market/BTC-USD">
+      <div class="position">Exchange EOS (EOS)</div>
+    </a>
+  </figure>
+  <figure class="snip0056" style="border: solid 2px">
+    <figcaption>
+      <h2>BTC / <span>PIVX</span></h2>
+      <div class="container" id="app5" style="display:grid; font-size:2.2vh; text-decoration: none;">
+    
+                                    
+        <div v-for="(result, index) in results5">
+ 
+          
+           
+        <div class="item result" style="float: left">
+          <p style="margin-top: 10%; font-weight: 800;">$ {{ result.USD }}</p>
+        </div>
+        <div class="item result" style="font-weight: 800;">
+          <p>Ƀ {{ result.BTC }}</p>
+        </div>
+   </div>  
+   </div> 
+      <div class="icons"><a href="#"><i class="ion-ios-home"></i></a><a href="#"><i class="ion-ios-email"></i></a><a href="#"><i class="ion-ios-telephone"></i></a></div>
+    </figcaption><img src="https://pbs.twimg.com/profile_images/938489778214813696/1zbs1h1A.jpg" alt="sample8" style="height:20vh; width: 20vh; margin-top:4vh; margin-right: 6vh;"/>
+    <a href="https://exchange.currencyup.com/market/BTC-USD">
+      <div class="position">Exchange PIVX (PIVX)</div>
+    </a>
+  </figure>
+  <figure class="snip0056 yellow" style="border: solid 2px">
+    <figcaption>
+      <h2>BTC / <span>DASH</span></h2>
+      <div class="container" id="app6" style="display:grid; font-size:2.2vh; text-decoration: none;">
+    
+                                    
+        <div v-for="(result, index) in results6">
+ 
+          
+           
+        <div class="item result" style="float: left">
+          <p style="margin-top: 10%; font-weight: 800;">$ {{ result.USD }}</p>
+        </div>
+        <div class="item result" style="font-weight: 800;">
+          <p>Ƀ {{ result.BTC }}</p>
+        </div>
+   </div>  
+   </div> 
+      <div class="icons"><a href="#"><i class="ion-ios-home"></i></a><a href="#"><i class="ion-ios-email"></i></a><a href="#"><i class="ion-ios-telephone"></i></a></div>
+    </figcaption><img src="https://www.abitgreedy.com/wp-content/uploads/2018/02/Dash.png" alt="sample8" style="height:20vh; width: 20vh; margin-top:4vh; margin-right: 6vh;"/>
+    <a href="https://exchange.currencyup.com/market/BTC-USD">
+      <div class="position">Exchange DASH (DASH)</div>
+    </a>
+  </figure>
+  <div style="margin-top: 5vh; height: 1px; width:100%;"></div>
+</div>
+<div style="height: 20vh; width: 100%; background-color: rgb(11, 12, 14); display: flex; justify-content: center; align-items: center; flex-flow: wrap; border-top: solid 5px  rgb(0, 0, 0);">
+
+</div>
+    <% include ../partials/footer %>
+    <script src='/js/index.js'></script>
+  
+  </body>
+
+<script>
+const typedTextSpan = document.querySelector(".typed-text");
+const cursorSpan = document.querySelector(".cursor");
+
+const textArray = ["BTC", "LTC", "ETH", "USD", "EOS", "BWK"];
+const typingSpeed = 200;
+const erasingSpeed = 100;
+const newTextDelay = 2000; // Delay between current and next text
+let textArrayIndex = 0; // textArray index
+let charIndex = 0; // character index
+
+function type() {
+  if (charIndex < textArray[textArrayIndex].length) {
+    if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(type, typingSpeed);
+  } 
+  else {
+    cursorSpan.classList.remove("typing");
+  	setTimeout(erase, newTextDelay);
+  }
+}
+
+function erase() {
+	if (charIndex > 0) {
+    if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
+    charIndex--;
+    setTimeout(erase, erasingSpeed);
+  } 
+  else {
+    cursorSpan.classList.remove("typing");
+    textArrayIndex++;
+    if(textArrayIndex>=textArray.length) textArrayIndex=0;
+    setTimeout(type, typingSpeed + 1100);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+  setTimeout(type, newTextDelay + 250);
+});
+</script>
+
+<script>
+const typedTextSpan = document.querySelector(".typed-text");
+const cursorSpan = document.querySelector(".cursor");
+
+const textArray = ["BTC", "LTC", "ETH", "USD", "EOS", "BWK"];
+const typingDelay = 200;
+const erasingDelay = 100;
+const newTextDelay = 2000; // Delay between current and next text
+let textArrayIndex = 0; // textArray index
+let charIndex = 0; // character index
+
+function type() {
+  if (charIndex < textArray[textArrayIndex].length) {
+    if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(type, typingDelay);
+  } 
+  else {
+    cursorSpan.classList.remove("typing");
+  	setTimeout(erase, newTextDelay);
+  }
+}
+
+function erase() {
+	if (charIndex > 0) {
+    if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
+    charIndex--;
+    setTimeout(erase, erasingDelay);
+  } 
+  else {
+    cursorSpan.classList.remove("typing");
+    textArrayIndex++;
+    if(textArrayIndex>=textArray.length) textArrayIndex=0;
+    setTimeout(type, typingDelay + 1100);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+  if(textArray.length) setTimeout(type, newTextDelay + 250);
+});
+</script>
+<script>
+document.addEventListener('mousemove', function(event){
+  let card_x = getTransformValue(event.clientX,window.innerWidth,56);
+  let card_y = getTransformValue(event.clientY,window.innerHeight,56);
+  let shadow_x = getTransformValue(event.clientX,window.innerWidth,20);
+  let shadow_y = getTransformValue(event.clientY,window.innerHeight,20);
+  let text_shadow_x = getTransformValue(event.clientX,window.innerWidth,28);
+  let text_shadow_y = getTransformValue(event.clientY,window.innerHeight,28);
+  $(".floating").css("transform","rotateX("+card_y/1+"deg) rotateY("+card_x+"deg)");
+  $(".floating").css("box-shadow",-card_x+"px "+card_y/1+"px 55px rgba(0, 0, 0, .55)");
+  $(".svg").css("filter","drop-shadow("+-shadow_x+"px "+shadow_y/1+"px 4px rgba(0, 0, 0, .6))");
+  $(".text").css("text-shadow",-text_shadow_x+"px "+text_shadow_y/1+"px 6px rgba(0, 0, 0, .8)");
+});
+function getTransformValue(v1,v2,value){
+  return ((v1/v2*value-value/2)*1).toFixed(1);                        
+}
+$(function(){
+  setTimeout(function(){
+    $("body").removeClass("active");
+  }, 2200);
+});
+</script>
+
+<script>
+ //Lazy table import (1 for each coin) -PIVX price 
+    const url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms=USD,BTC";
+    
+    const vm = new Vue({
+        el: '#app',   
+        data: {
+         results: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url).then(response => {
+                  this.results = response.data
+                })
+           }
+        }
+    });
+    //Lazy table import (1 for each coin) -bulwark price 
+    const url2 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH&tsyms=USD,BTC";
+    
+    const vm2 = new Vue({
+        el: '#app2',   
+        data: {
+         results2: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url2).then(response => {
+                  this.results2 = response.data
+                })
+           }
+        }
+    });
+    
+    //Lazy table import (1 for each coin) -TBA price 
+    const url3 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=XRP&tsyms=USD,BTC";
+    
+    const vm3 = new Vue({
+        el: '#app3',   
+        data: {
+         results3: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url3).then(response => {
+                  this.results3 = response.data
+                })
+           }
+        }
+    });
+    
+    //Lazy table import (1 for each coin) -TBA price 
+    const url4 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=EOS&tsyms=USD,BTC";
+    
+    const vm4 = new Vue({
+        el: '#app4',   
+        data: {
+         results4: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url4).then(response => {
+                  this.results4 = response.data
+                })
+           }
+        }
+    });
+
+     //Lazy table import (1 for each coin) -TBA price 
+     const url5 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=PIVX&tsyms=USD,BTC";
+    
+    const vm5 = new Vue({
+        el: '#app5',   
+        data: {
+         results5: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url5).then(response => {
+                  this.results5 = response.data
+                })
+           }
+        }
+    });
+    const url6 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=DASH&tsyms=USD,BTC";
+    
+    const vm6 = new Vue({
+        el: '#app6',   
+        data: {
+         results6: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url6).then(response => {
+                  this.results6 = response.data
+                })
+           }
+        }
+    });
+
+
+    const url7 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=LPC*&tsyms=USD,BTC";
+    
+    const vm7 = new Vue({
+        el: '#app7',   
+        data: {
+         results7: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url7).then(response => {
+                  this.results7 = response.data
+                })
+           }
+        }
+    });
+
+    const url8 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=XSN&tsyms=USD,BTC";
+    
+    const vm8 = new Vue({
+        el: '#app8',   
+        data: {
+         results8: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url8).then(response => {
+                  this.results8 = response.data
+                })
+           }
+        }
+    });
+
+    const url9 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=SIB&tsyms=USD,BTC";
+    
+    const vm9 = new Vue({
+        el: '#app9',   
+        data: {
+         results9: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url9).then(response => {
+                  this.results9 = response.data
+                })
+           }
+        }
+    });
+
+    const url11 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BITG&tsyms=USD,BTC";
+    
+    const vm10 = new Vue({
+        el: '#app10',   
+        data: {
+         results10: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url11).then(response => {
+                  this.results10 = response.data
+                })
+           }
+        }
+    });
+
+
+    const url12 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=GIN&tsyms=USD,BTC";
+    
+    const vm11 = new Vue({
+        el: '#app11',   
+        data: {
+         results11: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url12).then(response => {
+                  this.results11 = response.data
+                })
+           }
+        }
+    });
+
+
+    const url13 = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=XBI&tsyms=USD,BTC";
+    
+    const vm12 = new Vue({
+        el: '#app12',   
+        data: {
+         results12: []
+            },
+    
+         mounted() {
+          this.upDate();
+          this.timer = setInterval(this.upDate, 1000)
+          }, 
+    
+          methods:{
+          upDate: function() {
+                axios.get(url13).then(response => {
+                  this.results12 = response.data
+                })
+           }
+        }
+    });
+</script>
+
+<script>
+$('.features-item').on('click', function() {
+  var $this = $(this);
+  var imgsrc = $this.attr('data-src');
+  
+  $('.features-image img').attr('src', imgsrc);
+});
+</script>
+</html>

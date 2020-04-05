@@ -17,7 +17,7 @@ const cors = require('cors');
 
 exports.handle = function(app, wss)
 {
-    app.get('/', onMain);
+    app.get('/', onHelpStart2);
     app.get('/market/*', onMain);
     app.get('/index.html', onMain);
     
@@ -29,6 +29,17 @@ exports.handle = function(app, wss)
     app.get('/fees', onShowFeesPage);
     app.get('/API', onShowAPI);
     app.get('/add_coin', onHelpAddCoin);
+
+    app.get('/VoidMine', onHelpMine);
+    app.get('/advancetrade', onHelpAtrade);
+    app.get('/a-plus-exchange', onHelpAtradea);
+    app.get('/VoidStake', onHelpStaking);
+    app.get('/VoidNode', onHelpNodes);
+    app.get('/Nodes', onHelpNodesMain);
+    app.get('/Staking', onHelpStakingMain);
+    app.get('/start', onHelpStart);
+    app.get('/start2', onHelpStart2);
+    app.get('/terms', onHelpterms);
     app.get('/referals', onRefs);
     app.get('/getreferals', onGetReferals);
     
@@ -36,6 +47,7 @@ exports.handle = function(app, wss)
     app.get('/api/v1/public/getorderbook', cors(), API1.onGetOrderbook);
     app.get('/api/v1/public/getmarketsummary', cors(), API1.onGetMarketSummary);
     app.get('/api/v1/public/getmarkethistory', cors(), API1.onGetMarketHistory);
+    app.get('/api/v1/public/getcharts', cors(), API1.onGetCharts);
     app.get('/api/v1/public/getlastmarketdata', cors(), API1.onGetLastMarketData)
     app.get('/api/v1/public/getmarkets24', cors(), API1.onGetExchangeSummary);
     
@@ -160,6 +172,50 @@ function onShowFeesPage(req, res)
 function onHelpAddCoin(req, res)
 {
     CommonRender(req, res, 'pages/list_coin');
+}
+
+function onHelpNodesMain(req, res)
+{
+    CommonRender(req, res, 'pages/Nodes');
+}
+function onHelpStakingMain(req, res)
+{
+    CommonRender(req, res, 'pages/Staking');
+}
+function onHelpMine(req, res)
+{
+    CommonRender(req, res, 'pages/VoidMine');
+}
+
+function onHelpAtrade(req, res)
+{
+    CommonRender(req, res, 'pages/advancetrade');
+}
+function onHelpAtradea(req, res)
+{
+    CommonRender(req, res, 'pages/a-plus-exchange');
+}
+
+function onHelpStaking(req, res)
+{
+    CommonRender(req, res, 'pages/VoidStake');
+}
+function onHelpterms(req, res)
+{
+    CommonRender(req, res, 'pages/terms');
+}
+function onHelpNodes(req, res)
+{
+    CommonRender(req, res, 'pages/VoidNode');
+}
+
+function onHelpStart(req, res)
+{
+    CommonRender(req, res, 'pages/start');
+}
+function onHelpStart2(req, res)
+{
+    CommonRender(req, res, 'pages/start2');
 }
 
 function onRefs(req, res)

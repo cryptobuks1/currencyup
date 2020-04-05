@@ -22,7 +22,7 @@ exports.Init = function(callback)
     //g_db.run('ALTER TABLE orders ADD COLUMN uuid TEXT UNIQUE')
     
     RunDBTransaction();
-    setInterval(RunDBTransaction, 5000);
+    setInterval(RunDBTransaction, 1000);
     
     function CreateIndex(indexObject)
     {

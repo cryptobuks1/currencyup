@@ -1,12 +1,11 @@
 'use strict';
 
-exports.recaptcha_priv_key = '6Lfws34UAAAAAOYD3tkURBCZd3gGzFtaN_iYtM1B';
-exports.password_private_suffix = '6Lfws34UAAAAAOYD3tkURBCZd3gGzFtaN_iYtM1B222';
-exports.SSL_KEY = '../ssl_certificates/privkey.pem'; //change to your ssl certificates private key
-exports.SSL_CERT = '../ssl_certificates/fullchain.pem'; //change to your ssl certificates fullchain
+exports.recaptcha_priv_key = '6LesbeMUAAAAAMEoTvkORWgGWEnJqvGXxfdgc_uR';
+exports.password_private_suffix = '82247203';
+exports.SSL_KEY = '/etc/letsencrypt/live/dev.currencyup.com/privkey.pem'; //change to your ssl certificates private key
+exports.SSL_CERT = '/etc/letsencrypt/live/dev.currencyup.com/fullchain.pem'; //change to your ssl certificates fullchain
 
 exports.walletspassphrase = {
-    'MC' : 'BtcWalletuserDip222',
-    'BTC' : 'BtcWalletuserDip223',
-    'DOGE' : 'BtcWalletuserDip224'
+    'LTC' : '82247203',
+    'DNR' : '82247203'
 };
